@@ -6,6 +6,11 @@ libfprint's `elan` driver.
 
 Intended for [iafilatov/libfprint#53](https://github.com/iafilatov/libfprint/issues/53),
 which reports this device as non-functional with no diagnostic data attached.
+Everything above the appendix can be pasted there as-is.
+
+See [README.md](README.md) for the goal, the hardware inventory, and what else
+was tried. The laptop's second, built-in sensor is covered in the
+[appendix](#appendix-the-laptops-built-in-sensor-not-part-of-issue-53).
 
 **Result:** enrollment now works. Verification does not, for a reason that
 appears to be architectural rather than a bug — see [Unresolved](#unresolved).
@@ -175,3 +180,56 @@ tools/install-patched-driver.sh    # install patched libfprint, scoped to fprint
 ```
 
 Logs from each stage are archived alongside them.
+
+---
+
+## Appendix: the laptop's built-in sensor (not part of issue #53)
+
+The same machine has a second, unrelated fingerprint sensor — the square pad in
+the corner of the ASUS touchpad. It is recorded here because it caused the first
+few hours of confusion, not because it bears on `04f3:0c3d`.
+
+| | |
+|---|---|
+| Chip | ELAN7001, **SPI** (not USB) |
+| sysfs | `spi-ELAN7001:00` → `spidev`, `/dev/spidev2.0` |
+| Driver | `elanspi` |
+| fprintd name | ElanTech Embedded Fingerprint Sensor |
+| Scan type | swipe, 8 enroll stages |
+
+### It hid the real problem
+
+`omarchy hw fingerprint` only scans USB sysfs, so it reported *no reader* while
+this SPI sensor was present. Meanwhile fprintd enumerated **both** devices and
+`fprintd-enroll` used the default — the built-in one. Early enrollment attempts
+therefore appeared to do nothing while the user touched the USB dongle, because
+the driver was talking to a different sensor entirely.
+
+Separating them with `FP_DRIVERS_ALLOWLIST` (`elanspi` vs `elan`) in a fprintd
+systemd drop-in was the step that made everything afterwards diagnosable.
+
+### Why it was abandoned
+
+libfprint's udev rule binds it to `spidev` correctly, so the plumbing is right,
+but the sensor never initialises reliably:
+
+```
+<init/otp> timed out waiting for vcom detection        (repeatedly, ~5s each)
+Device reported an error during enroll: Device disabled to prevent overheating.
+Deactivating image device while it is not idle, this should not happen.
+fpi_device_action_error: assertion 'priv->current_action != FPI_DEVICE_ACTION_NONE' failed
+```
+
+"Overheating" is libfprint's *temperature estimation model*, not real heat — the
+driver spends so long retrying failed initialisations that its own safety model
+shuts the device down. Restarting fprintd resets that model, which buys one more
+attempt.
+
+With a fresh daemon it did once complete all 8 enroll stages, but the resulting
+template failed `fprintd-verify` — captures taken while the device was only
+partially initialised. The assertion failure is libfprint reaching a state its
+authors did not anticipate.
+
+Conclusion: `elanspi` support for ELAN7001 is real in principle but does not work
+on this machine. Excluded from fprintd via the driver allowlist. Worth retesting
+after a future kernel or libfprint update — it is a one-word change back.
