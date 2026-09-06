@@ -1,0 +1,103 @@
+diff --git i/libfprint/drivers/elan.c w/libfprint/drivers/elan.c
+index f9cc52f..5c9a475 100644
+--- i/libfprint/drivers/elan.c
++++ w/libfprint/drivers/elan.c
+@@ -331,8 +331,19 @@ elan_submit_image (FpImageDevice *dev)
+   assembling_ctx.image_width = self->frame_width * 3 / 2;
+   g_slist_foreach (raw_frames, (GFunc) self->process_frame, &frames);
+   fpi_do_movement_estimation (&assembling_ctx, frames);
++
++  /* On 0c3d the horizontal component of the estimate is unusable: frames land
++   * tens of pixels apart laterally, assembling into a staircase of good frames
++   * at wrong offsets. A finger crossing a 64px sensor does not move that far
++   * sideways between consecutive frames, so keep the vertical estimate and
++   * drop delta_x. */
++  if (self->dev_type == ELAN_0C3D)
++    for (GSList *l = frames; l != NULL; l = l->next)
++      ((struct fpi_frame *) l->data)->delta_x = 0;
++
+   img = fpi_assemble_frames (&assembling_ctx, frames);
+   img->flags |= FPI_IMAGE_PARTIAL;
++  img->ppmm = ELAN_PPMM;
+ 
+   g_slist_free_full (frames, g_free);
+ 
+@@ -557,11 +568,12 @@ capture_run_state (FpiSsm *ssm, FpDevice *dev)
+           fpi_image_device_report_finger_status (idev, TRUE);
+           elan_run_cmd (ssm, dev, &get_image_cmd, ELAN_CMD_TIMEOUT);
+         }
+-      else if (self->dev_type == ELAN_0C58 && self->last_read &&
++      else if ((self->dev_type == ELAN_0C58 || self->dev_type == ELAN_0C3D) &&
++               self->last_read &&
+                (self->last_read[0] == 0x00 || self->last_read[0] == 0xaf))
+         {
+           /* 0x00 - not ready
+-           * 0xaf - finger removed or sensor busy (seen on 0x0c58) */
++           * 0xaf - finger removed or sensor busy (seen on 0x0c58 and 0x0c3d) */
+           fpi_ssm_jump_to_state_delayed (ssm, CAPTURE_WAIT_FINGER, 10);
+         }
+       else
+@@ -766,6 +778,23 @@ calibrate_run_state (FpiSsm *ssm, FpDevice *dev)
+        * to 0x03. Because of this we don't just expect 0x03, we want to see 0x01
+        * first. This is to make sure that a full calibration loop has completed */
+       fp_dbg ("calibration status: 0x%02x", self->last_read[0]);
++
++      /* 0c3d never advances to 0x03 -- it reports 0x01 ("retry") for as long as
++       * we poll (measured: 199 polls, ~10s, all 0x01), so a larger budget
++       * cannot help. What needs redoing is the background frame:
++       * CALIBRATE_GET_BACKGROUND grabs it without waiting for the finger to
++       * lift, and a contaminated background reads ~9900 against a ~8300
++       * baseline, pushing the delta over ELAN_CALIBRATION_MAX_DELTA and
++       * starting this loop. Re-capture instead of polling; once the finger is
++       * off the delta falls back under the threshold and calibration
++       * completes. The attempt budget still decrements via
++       * CALIBRATE_GET_STATUS. */
++      if (self->dev_type == ELAN_0C3D && self->last_read[0] == 0x01)
++        {
++          fpi_ssm_jump_to_state_delayed (ssm, CALIBRATE_GET_BACKGROUND, 50);
++          break;
++        }
++
+       if (self->calib_status == 0x01 &&
+           self->last_read[0] == 0x03)
+         {
+diff --git i/libfprint/drivers/elan.h w/libfprint/drivers/elan.h
+index 6bbaae0..6346571 100644
+--- i/libfprint/drivers/elan.h
++++ w/libfprint/drivers/elan.h
+@@ -32,10 +32,16 @@
+ #define ELAN_0C03 (1 << 1)
+ #define ELAN_0C42 (1 << 2)
+ #define ELAN_0C58 (1 << 3)
++#define ELAN_0C3D (1 << 4)
+ 
+ /* devices which don't require frame rotation before assembling */
+ #define ELAN_NOT_ROTATED ELAN_0C03
+ 
++/* Sensor resolution. libfprint leaves FpImage.ppmm at 0 unless a driver sets
++ * it, and that 0 reaches NBIS get_minutiae(), whose thresholds are all
++ * pixels-per-mm relative. Assume the usual 500 DPI. */
++#define ELAN_PPMM 19.685
++
+ /* min FW version that supports calibration */
+ #define ELAN_MIN_CALIBRATION_FW 0x0138
+ 
+@@ -47,7 +53,8 @@
+  * generally prevents calibration from looping indefinitely */
+ #define ELAN_DEFAULT_CALIBRATION_ATTEMPTS 10
+ #define ELAN_CALIBRATION_ATTEMPTS(dev_type) \
+-  ((dev_type) == ELAN_0C58 ? 30 : ELAN_DEFAULT_CALIBRATION_ATTEMPTS)
++  ((dev_type) == ELAN_0C58 || (dev_type) == ELAN_0C3D ? 30 : \
++   ELAN_DEFAULT_CALIBRATION_ATTEMPTS)
+ 
+ /* min and max frames in a capture */
+ #define ELAN_MIN_FRAMES 7
+@@ -216,7 +223,7 @@ static const FpIdEntry elan_id_table[] = {
+   {.vid = ELAN_VEND_ID,  .pid = 0x0c31, .driver_data = ELAN_ALL_DEV},
+   {.vid = ELAN_VEND_ID,  .pid = 0x0c32, .driver_data = ELAN_ALL_DEV},
+   {.vid = ELAN_VEND_ID,  .pid = 0x0c33, .driver_data = ELAN_ALL_DEV},
+-  {.vid = ELAN_VEND_ID,  .pid = 0x0c3d, .driver_data = ELAN_ALL_DEV},
++  {.vid = ELAN_VEND_ID,  .pid = 0x0c3d, .driver_data = ELAN_0C3D},
+   {.vid = ELAN_VEND_ID,  .pid = 0x0c42, .driver_data = ELAN_0C42},
+   {.vid = ELAN_VEND_ID,  .pid = 0x0c4b, .driver_data = ELAN_ALL_DEV},
+   {.vid = ELAN_VEND_ID,  .pid = 0x0c4d, .driver_data = ELAN_ALL_DEV},

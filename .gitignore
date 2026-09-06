@@ -1,0 +1,4 @@
+# Fingerprint images captured during driver debugging. Real biometric data --
+# keep local, never push. FINDINGS.md describes what they showed.
+*.pgm
+tools/finger*.png

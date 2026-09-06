@@ -1,0 +1,1185 @@
+### 2026-09-05T19:32:37-07:00  PATCHED BUILD
+### 6f9479c synaptics: Add new PID 0x10b
+(process:200877): libfprint-context-DEBUG: 19:32:37.578: Initializing FpContext (libfprint version 1.94.100)
+(process:200877): libfprint-context-DEBUG: 19:32:37.588: No driver found for USB device 1D6B:0003
+(process:200877): libfprint-context-DEBUG: 19:32:37.588: No driver found for USB device 13D3:5A07
+(process:200877): libfprint-context-DEBUG: 19:32:37.589: No driver found for USB device 13D3:3496
+(process:200877): libfprint-context-DEBUG: 19:32:37.589: No driver found for USB device 1D6B:0002
+(process:200877): libfprint-device-DEBUG: 19:32:37.594: Device reported probe completion (ID: (null), name: (null), error: none)
+(process:200877): libfprint-device-DEBUG: 19:32:37.594: Completing action FPI_DEVICE_ACTION_PROBE in idle!
+(process:200877): libfprint-device-DEBUG: 19:32:37.594: Updated temperature model after 0.01 seconds, ratio 0.27 -> 0.27, active 0 -> 0, FP_TEMPERATURE_COLD -> FP_TEMPERATURE_COLD
+devices: 1
+driver=elan name=ElanTech Fingerprint Sensor stages=5
+(process:200877): libfprint-elan-DEBUG: 19:32:37.688: 55031473434: ../libfprint/drivers/elan.c:942
+(process:200877): libfprint-image_device-DEBUG: 19:32:37.688: Image device open completed
+(process:200877): libfprint-device-DEBUG: 19:32:37.688: Device reported open completion (error: none)
+(process:200877): libfprint-device-DEBUG: 19:32:37.688: Completing action FPI_DEVICE_ACTION_OPEN in idle!
+(process:200877): libfprint-device-DEBUG: 19:32:37.688: Updated temperature model after 0.09 seconds, ratio 0.27 -> 0.27, active 0 -> 0, FP_TEMPERATURE_COLD -> FP_TEMPERATURE_COLD
+open_sync OK
+(process:200877): libfprint-device-DEBUG: 19:32:37.691: Updated temperature model after 0.00 seconds, ratio 0.27 -> 0.27, active 1 -> 1, FP_TEMPERATURE_COLD -> FP_TEMPERATURE_COLD
+(process:200877): libfprint-image_device-DEBUG: 19:32:37.691: Activating image device
+(process:200877): libfprint-image_device-DEBUG: 19:32:37.691: Image device internal state change from FPI_IMAGE_DEVICE_STATE_INACTIVE to FPI_IMAGE_DEVICE_STATE_ACTIVATING
+(process:200877): libfprint-elan-DEBUG: 19:32:37.691: 55031476304: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-elan-DEBUG: 19:32:37.691: 55031476326: ../libfprint/drivers/elan.c:985
+(process:200877): libfprint-elan-DEBUG: 19:32:37.691: 55031476379: ../libfprint/drivers/elan.c:926
+(process:200877): libfprint-elan-DEBUG: 19:32:37.691: 55031476400: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.691: [elan] ACTIVATE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:32:37.691: 55031476445: ../libfprint/drivers/elan.c:854
+(process:200877): libfprint-elan-DEBUG: 19:32:37.691: 55031476620: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.691: 55031476644: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:37.691: 55031476664: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:37.691: 55031476835: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031476863: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.692: [elan] ACTIVATE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031476905: ../libfprint/drivers/elan.c:854
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: FW ver 0x0165
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.692: [elan] ACTIVATE_NUM_STATES entering state 2
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031476966: ../libfprint/drivers/elan.c:854
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477131: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477158: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477177: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477316: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477339: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.692: [elan] ACTIVATE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477378: ../libfprint/drivers/elan.c:854
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: sensor dimensions, WxH: 64x88
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.692: [elan] ACTIVATE_NUM_STATES entering state 4
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477435: ../libfprint/drivers/elan.c:854
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: skipping command 0x40 0x2a for this device (for devices 0x1 but device is 0x10)
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477474: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.692: [elan] ACTIVATE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477512: ../libfprint/drivers/elan.c:915
+(process:200877): libfprint-image_device-DEBUG: 19:32:37.692: Image device activation completed
+(process:200877): libfprint-image_device-DEBUG: 19:32:37.692: Image device internal state change from FPI_IMAGE_DEVICE_STATE_ACTIVATING to FPI_IMAGE_DEVICE_STATE_IDLE
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477573: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-image_device-DEBUG: 19:32:37.692: Image device internal state change from FPI_IMAGE_DEVICE_STATE_IDLE to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477616: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477635: ../libfprint/drivers/elan.c:826
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477653: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.692: [elan] CALIBRATE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477692: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-device-DEBUG: 19:32:37.692: Device reported finger status change: FP_FINGER_STATUS_NONE -> FP_FINGER_STATUS_NEEDED
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477789: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477809: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:37.692: 55031477827: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:37.725: 55031510341: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.725: 55031510491: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.725: [elan] CALIBRATE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:32:37.725: 55031510579: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:37.725: 55031510620: ../libfprint/drivers/elan.c:156
+(process:200877): libfprint-elan-DEBUG: 19:32:37.725: 55031510673: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.725: [elan] CALIBRATE_NUM_STATES entering state 2
+(process:200877): libfprint-elan-DEBUG: 19:32:37.725: 55031510788: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:37.726: 55031511057: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.726: 55031511117: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:37.726: 55031511152: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:37.726: 55031511311: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.726: 55031511346: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.726: [elan] CALIBRATE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:32:37.726: 55031511401: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:37.726: 55031511428: ../libfprint/drivers/elan.c:651
+(process:200877): libfprint-elan-DEBUG: 19:32:37.726: calibration mean: 7458, bg mean: 6018, delta: 1440
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.726: [elan] CALIBRATE_NUM_STATES entering state 4
+(process:200877): libfprint-elan-DEBUG: 19:32:37.726: 55031511511: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:37.726: 55031511789: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.726: 55031511836: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:37.727: 55031511876: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:37.727: 55031512720: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.727: 55031512772: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.727: [elan] CALIBRATE_NUM_STATES entering state 5
+(process:200877): libfprint-elan-DEBUG: 19:32:37.728: 55031512854: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:37.728: calibration status: 0x01
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.778: [elan] CALIBRATE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:32:37.778: 55031563180: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:37.778: 55031563608: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.778: 55031563685: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:37.778: 55031563742: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-device-DEBUG: 19:32:37.801: Updated temperature model after 0.11 seconds, ratio 0.27 -> 0.27, active 1 -> 1, FP_TEMPERATURE_COLD -> FP_TEMPERATURE_WARM
+(process:200877): libfprint-elan-DEBUG: 19:32:37.853: 55031637996: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.853: 55031638169: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.853: [elan] CALIBRATE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:32:37.853: 55031638299: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:37.853: 55031638361: ../libfprint/drivers/elan.c:156
+(process:200877): libfprint-elan-DEBUG: 19:32:37.853: 55031638427: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.853: [elan] CALIBRATE_NUM_STATES entering state 2
+(process:200877): libfprint-elan-DEBUG: 19:32:37.853: 55031638572: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:37.854: 55031638915: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.854: 55031638970: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:37.854: 55031639037: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:37.854: 55031639296: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.854: 55031639355: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.854: [elan] CALIBRATE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:32:37.854: 55031639454: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:37.854: 55031639503: ../libfprint/drivers/elan.c:651
+(process:200877): libfprint-elan-DEBUG: 19:32:37.854: calibration mean: 8358, bg mean: 8400, delta: 42
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.854: [elan] CALIBRATE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:32:37.854: 55031639679: ../libfprint/drivers/elan.c:810
+(process:200877): libfprint-elan-DEBUG: 19:32:37.854: 55031639729: ../libfprint/drivers/elan.c:637
+(process:200877): libfprint-elan-DEBUG: 19:32:37.854: 55031639778: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.854: [elan] CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:32:37.855: 55031640053: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.855: 55031640118: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:37.855: 55031640167: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:37.855: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:32:37.855: 55031640260: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:37.855: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:32:37.855: 55031640541: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:37.855: 55031640600: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:37.855: 55031640683: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:47.856: 55041641352: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-SSM-DEBUG: 19:32:47.856: [elan] SSM CAPTURE_NUM_STATES failed in state 1 with error: transfer timed out
+(process:200877): libfprint-SSM-DEBUG: 19:32:47.856: [elan] CAPTURE_NUM_STATES completed with error: transfer timed out
+(process:200877): libfprint-elan-DEBUG: 19:32:47.856: 55041641647: ../libfprint/drivers/elan.c:603
+(process:200877): libfprint-elan-DEBUG: 19:32:47.856: swipe too short: want >= 7 frames, got 0
+(process:200877): libfprint-image_device-DEBUG: 19:32:47.856: Reporting retry during enroll
+(process:200877): libfprint-device-DEBUG: 19:32:47.857: Device reported enroll progress, reported 0 of 5 have been completed
+  stage 0: err=None
+(process:200877): libfprint-image_device-DEBUG: 19:32:47.857: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF
+
+(process:200877): libfprint-image_device-WARNING **: 19:32:47.857: Internal state machine issue: transition from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF should not happen!
+(process:200877): libfprint-elan-DEBUG: 19:32:47.857: 55041642318: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-device-DEBUG: 19:32:47.857: Device reported finger status change: FP_FINGER_STATUS_NEEDED -> FP_FINGER_STATUS_NONE
+(process:200877): libfprint-elan-DEBUG: 19:32:47.857: 55041642463: ../libfprint/drivers/elan.c:517
+(process:200877): libfprint-elan-DEBUG: 19:32:47.857: 55041642525: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:32:47.857: [elan] STOP_CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:32:47.857: 55041642667: ../libfprint/drivers/elan.c:476
+(process:200877): libfprint-elan-DEBUG: 19:32:47.858: 55041643243: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:47.858: 55041643322: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:47.858: 55041643385: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:47.858: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:32:47.858: 55041643703: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:47.858: [elan] STOP_CAPTURE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:32:47.858: 55041643828: ../libfprint/drivers/elan.c:493
+(process:200877): libfprint-image_device-DEBUG: 19:32:47.859: Image device reported finger status: off
+(process:200877): libfprint-image_device-DEBUG: 19:32:47.859: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF to FPI_IMAGE_DEVICE_STATE_IDLE
+(process:200877): libfprint-elan-DEBUG: 19:32:47.859: 55041644332: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-image_device-DEBUG: 19:32:47.859: Image device internal state change from FPI_IMAGE_DEVICE_STATE_IDLE to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON
+(process:200877): libfprint-elan-DEBUG: 19:32:47.859: 55041644491: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-elan-DEBUG: 19:32:47.859: 55041644553: ../libfprint/drivers/elan.c:826
+(process:200877): libfprint-elan-DEBUG: 19:32:47.859: 55041644612: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:32:47.859: [elan] CALIBRATE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:32:47.859: 55041644737: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-device-DEBUG: 19:32:47.860: Device reported finger status change: FP_FINGER_STATUS_NONE -> FP_FINGER_STATUS_NEEDED
+(process:200877): libfprint-elan-DEBUG: 19:32:47.860: 55041645224: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:47.860: 55041645290: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:47.860: 55041645349: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:47.930: 55041715217: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:47.930: 55041715363: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:47.930: [elan] CALIBRATE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:32:47.930: 55041715491: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:47.930: 55041715554: ../libfprint/drivers/elan.c:156
+(process:200877): libfprint-elan-DEBUG: 19:32:47.930: 55041715628: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:32:47.930: [elan] CALIBRATE_NUM_STATES entering state 2
+(process:200877): libfprint-elan-DEBUG: 19:32:47.930: 55041715775: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:47.931: 55041716366: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:47.931: 55041716461: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:47.931: 55041716526: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:47.931: 55041716801: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:47.932: 55041716866: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:47.932: [elan] CALIBRATE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:32:47.932: 55041716989: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:47.932: 55041717084: ../libfprint/drivers/elan.c:651
+(process:200877): libfprint-elan-DEBUG: 19:32:47.932: calibration mean: 8358, bg mean: 8379, delta: 21
+(process:200877): libfprint-SSM-DEBUG: 19:32:47.932: [elan] CALIBRATE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:32:47.932: 55041717273: ../libfprint/drivers/elan.c:810
+(process:200877): libfprint-elan-DEBUG: 19:32:47.932: 55041717333: ../libfprint/drivers/elan.c:637
+(process:200877): libfprint-elan-DEBUG: 19:32:47.932: 55041717393: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:32:47.932: [elan] CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:32:47.933: 55041718187: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:47.933: 55041718266: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:47.933: 55041718327: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:47.933: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:32:47.933: 55041718643: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:47.933: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:32:47.934: 55041719228: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:47.934: 55041719541: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:47.934: 55041719616: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:57.935: 55051720057: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-SSM-DEBUG: 19:32:57.935: [elan] SSM CAPTURE_NUM_STATES failed in state 1 with error: transfer timed out
+(process:200877): libfprint-SSM-DEBUG: 19:32:57.935: [elan] CAPTURE_NUM_STATES completed with error: transfer timed out
+(process:200877): libfprint-elan-DEBUG: 19:32:57.935: 55051720340: ../libfprint/drivers/elan.c:603
+(process:200877): libfprint-elan-DEBUG: 19:32:57.935: swipe too short: want >= 7 frames, got 0
+(process:200877): libfprint-image_device-DEBUG: 19:32:57.935: Reporting retry during enroll
+(process:200877): libfprint-device-DEBUG: 19:32:57.935: Device reported enroll progress, reported 0 of 5 have been completed
+  stage 0: err=None
+(process:200877): libfprint-image_device-DEBUG: 19:32:57.936: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF
+
+(process:200877): libfprint-image_device-WARNING **: 19:32:57.936: Internal state machine issue: transition from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF should not happen!
+(process:200877): libfprint-elan-DEBUG: 19:32:57.936: 55051721134: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-device-DEBUG: 19:32:57.936: Device reported finger status change: FP_FINGER_STATUS_NEEDED -> FP_FINGER_STATUS_NONE
+(process:200877): libfprint-elan-DEBUG: 19:32:57.936: 55051721275: ../libfprint/drivers/elan.c:517
+(process:200877): libfprint-elan-DEBUG: 19:32:57.936: 55051721335: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:32:57.936: [elan] STOP_CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:32:57.936: 55051721460: ../libfprint/drivers/elan.c:476
+(process:200877): libfprint-elan-DEBUG: 19:32:57.937: 55051722468: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:57.938: 55051722999: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:57.938: 55051723475: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:57.938: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:32:57.938: 55051723809: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:57.939: [elan] STOP_CAPTURE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:32:57.939: 55051723940: ../libfprint/drivers/elan.c:493
+(process:200877): libfprint-image_device-DEBUG: 19:32:57.939: Image device reported finger status: off
+(process:200877): libfprint-image_device-DEBUG: 19:32:57.939: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF to FPI_IMAGE_DEVICE_STATE_IDLE
+(process:200877): libfprint-elan-DEBUG: 19:32:57.939: 55051724745: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-image_device-DEBUG: 19:32:57.939: Image device internal state change from FPI_IMAGE_DEVICE_STATE_IDLE to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON
+(process:200877): libfprint-elan-DEBUG: 19:32:57.940: 55051724894: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-elan-DEBUG: 19:32:57.940: 55051725096: ../libfprint/drivers/elan.c:826
+(process:200877): libfprint-elan-DEBUG: 19:32:57.940: 55051725185: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:32:57.940: [elan] CALIBRATE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:32:57.940: 55051725274: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-device-DEBUG: 19:32:57.940: Device reported finger status change: FP_FINGER_STATUS_NONE -> FP_FINGER_STATUS_NEEDED
+(process:200877): libfprint-elan-DEBUG: 19:32:57.940: 55051725709: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:57.940: 55051725793: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:57.940: 55051725817: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:57.976: 55051761435: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:57.976: 55051761582: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:57.976: [elan] CALIBRATE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:32:57.976: 55051761710: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:57.976: 55051761770: ../libfprint/drivers/elan.c:156
+(process:200877): libfprint-elan-DEBUG: 19:32:57.976: 55051761834: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:32:57.977: [elan] CALIBRATE_NUM_STATES entering state 2
+(process:200877): libfprint-elan-DEBUG: 19:32:57.977: 55051761977: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:57.977: 55051762406: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:57.977: 55051762478: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:57.977: 55051762542: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:57.978: 55051762916: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:57.978: 55051762988: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:57.978: [elan] CALIBRATE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:32:57.978: 55051763138: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:32:57.978: 55051763197: ../libfprint/drivers/elan.c:651
+(process:200877): libfprint-elan-DEBUG: 19:32:57.978: calibration mean: 8358, bg mean: 8379, delta: 21
+(process:200877): libfprint-SSM-DEBUG: 19:32:57.978: [elan] CALIBRATE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:32:57.978: 55051763382: ../libfprint/drivers/elan.c:810
+(process:200877): libfprint-elan-DEBUG: 19:32:57.978: 55051763441: ../libfprint/drivers/elan.c:637
+(process:200877): libfprint-elan-DEBUG: 19:32:57.978: 55051763499: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:32:57.978: [elan] CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:32:57.979: 55051763958: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:57.979: 55051764048: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:57.979: 55051764109: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:32:57.979: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:32:57.979: 55051764227: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:32:57.979: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:32:57.979: 55051764524: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:32:57.979: 55051764588: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:32:57.979: 55051764647: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:07.980: 55061765277: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-SSM-DEBUG: 19:33:07.980: [elan] SSM CAPTURE_NUM_STATES failed in state 1 with error: transfer timed out
+(process:200877): libfprint-SSM-DEBUG: 19:33:07.980: [elan] CAPTURE_NUM_STATES completed with error: transfer timed out
+(process:200877): libfprint-elan-DEBUG: 19:33:07.980: 55061765563: ../libfprint/drivers/elan.c:603
+(process:200877): libfprint-elan-DEBUG: 19:33:07.980: swipe too short: want >= 7 frames, got 0
+(process:200877): libfprint-image_device-DEBUG: 19:33:07.980: Reporting retry during enroll
+(process:200877): libfprint-device-DEBUG: 19:33:07.980: Device reported enroll progress, reported 0 of 5 have been completed
+  stage 0: err=None
+(process:200877): libfprint-image_device-DEBUG: 19:33:07.981: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF
+
+(process:200877): libfprint-image_device-WARNING **: 19:33:07.981: Internal state machine issue: transition from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF should not happen!
+(process:200877): libfprint-elan-DEBUG: 19:33:07.981: 55061766210: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-device-DEBUG: 19:33:07.981: Device reported finger status change: FP_FINGER_STATUS_NEEDED -> FP_FINGER_STATUS_NONE
+(process:200877): libfprint-elan-DEBUG: 19:33:07.981: 55061766355: ../libfprint/drivers/elan.c:517
+(process:200877): libfprint-elan-DEBUG: 19:33:07.981: 55061766418: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:07.981: [elan] STOP_CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:07.981: 55061766546: ../libfprint/drivers/elan.c:476
+(process:200877): libfprint-elan-DEBUG: 19:33:07.982: 55061766865: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:07.982: 55061766931: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:07.982: 55061766992: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:07.982: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:33:07.982: 55061767136: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:07.982: [elan] STOP_CAPTURE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:33:07.982: 55061767256: ../libfprint/drivers/elan.c:493
+(process:200877): libfprint-image_device-DEBUG: 19:33:07.982: Image device reported finger status: off
+(process:200877): libfprint-image_device-DEBUG: 19:33:07.982: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF to FPI_IMAGE_DEVICE_STATE_IDLE
+(process:200877): libfprint-elan-DEBUG: 19:33:07.982: 55061767449: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-image_device-DEBUG: 19:33:07.982: Image device internal state change from FPI_IMAGE_DEVICE_STATE_IDLE to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON
+(process:200877): libfprint-elan-DEBUG: 19:33:07.982: 55061767583: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-elan-DEBUG: 19:33:07.982: 55061767643: ../libfprint/drivers/elan.c:826
+(process:200877): libfprint-elan-DEBUG: 19:33:07.982: 55061767702: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:07.982: [elan] CALIBRATE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:07.982: 55061767823: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-device-DEBUG: 19:33:07.983: Device reported finger status change: FP_FINGER_STATUS_NONE -> FP_FINGER_STATUS_NEEDED
+(process:200877): libfprint-elan-DEBUG: 19:33:07.983: 55061768235: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:07.983: 55061768339: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:07.983: 55061768615: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:08.027: 55061812252: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:08.027: 55061812397: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:08.027: [elan] CALIBRATE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:08.027: 55061812526: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:08.027: 55061812587: ../libfprint/drivers/elan.c:156
+(process:200877): libfprint-elan-DEBUG: 19:33:08.027: 55061812652: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:08.027: [elan] CALIBRATE_NUM_STATES entering state 2
+(process:200877): libfprint-elan-DEBUG: 19:33:08.027: 55061812797: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:08.028: 55061813161: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:08.028: 55061813243: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:08.028: 55061813308: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:08.028: 55061813746: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:08.028: 55061813824: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:08.029: [elan] CALIBRATE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:08.029: 55061813951: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:08.029: 55061814248: ../libfprint/drivers/elan.c:651
+(process:200877): libfprint-elan-DEBUG: 19:33:08.029: calibration mean: 8358, bg mean: 8359, delta: 1
+(process:200877): libfprint-SSM-DEBUG: 19:33:08.029: [elan] CALIBRATE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:33:08.029: 55061814630: ../libfprint/drivers/elan.c:810
+(process:200877): libfprint-elan-DEBUG: 19:33:08.029: 55061814695: ../libfprint/drivers/elan.c:637
+(process:200877): libfprint-elan-DEBUG: 19:33:08.029: 55061814756: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:08.029: [elan] CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:08.030: 55061815309: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:08.030: 55061815383: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:08.030: 55061815594: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:08.030: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:33:08.030: 55061815719: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:08.030: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:08.031: 55061816365: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:08.031: 55061816440: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:08.031: 55061816502: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:18.032: 55071817194: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-SSM-DEBUG: 19:33:18.032: [elan] SSM CAPTURE_NUM_STATES failed in state 1 with error: transfer timed out
+(process:200877): libfprint-SSM-DEBUG: 19:33:18.032: [elan] CAPTURE_NUM_STATES completed with error: transfer timed out
+(process:200877): libfprint-elan-DEBUG: 19:33:18.032: 55071817478: ../libfprint/drivers/elan.c:603
+(process:200877): libfprint-elan-DEBUG: 19:33:18.032: swipe too short: want >= 7 frames, got 0
+(process:200877): libfprint-image_device-DEBUG: 19:33:18.032: Reporting retry during enroll
+(process:200877): libfprint-device-DEBUG: 19:33:18.032: Device reported enroll progress, reported 0 of 5 have been completed
+  stage 0: err=None
+(process:200877): libfprint-image_device-DEBUG: 19:33:18.033: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF
+
+(process:200877): libfprint-image_device-WARNING **: 19:33:18.033: Internal state machine issue: transition from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF should not happen!
+(process:200877): libfprint-elan-DEBUG: 19:33:18.033: 55071818086: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-device-DEBUG: 19:33:18.033: Device reported finger status change: FP_FINGER_STATUS_NEEDED -> FP_FINGER_STATUS_NONE
+(process:200877): libfprint-elan-DEBUG: 19:33:18.033: 55071818229: ../libfprint/drivers/elan.c:517
+(process:200877): libfprint-elan-DEBUG: 19:33:18.033: 55071818291: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:18.033: [elan] STOP_CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:18.033: 55071818420: ../libfprint/drivers/elan.c:476
+(process:200877): libfprint-elan-DEBUG: 19:33:18.034: 55071819043: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:18.034: 55071819119: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:18.034: 55071819180: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:18.034: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:33:18.034: 55071819307: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:18.034: [elan] STOP_CAPTURE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:33:18.034: 55071819432: ../libfprint/drivers/elan.c:493
+(process:200877): libfprint-image_device-DEBUG: 19:33:18.034: Image device reported finger status: off
+(process:200877): libfprint-image_device-DEBUG: 19:33:18.034: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF to FPI_IMAGE_DEVICE_STATE_IDLE
+(process:200877): libfprint-elan-DEBUG: 19:33:18.034: 55071819636: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-image_device-DEBUG: 19:33:18.034: Image device internal state change from FPI_IMAGE_DEVICE_STATE_IDLE to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON
+(process:200877): libfprint-elan-DEBUG: 19:33:18.034: 55071819775: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-elan-DEBUG: 19:33:18.034: 55071819837: ../libfprint/drivers/elan.c:826
+(process:200877): libfprint-elan-DEBUG: 19:33:18.035: 55071819898: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:18.035: [elan] CALIBRATE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:18.035: 55071820058: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-device-DEBUG: 19:33:18.035: Device reported finger status change: FP_FINGER_STATUS_NONE -> FP_FINGER_STATUS_NEEDED
+(process:200877): libfprint-elan-DEBUG: 19:33:18.035: 55071820417: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:18.035: 55071820483: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:18.035: 55071820543: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:18.084: 55071869479: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:18.084: 55071869623: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:18.084: [elan] CALIBRATE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:18.084: 55071869752: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:18.084: 55071869813: ../libfprint/drivers/elan.c:156
+(process:200877): libfprint-elan-DEBUG: 19:33:18.085: 55071869878: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:18.085: [elan] CALIBRATE_NUM_STATES entering state 2
+(process:200877): libfprint-elan-DEBUG: 19:33:18.085: 55071870054: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:18.085: 55071870561: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:18.085: 55071870638: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:18.085: 55071870701: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:18.086: 55071871169: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:18.086: 55071871239: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:18.086: [elan] CALIBRATE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:18.086: 55071871362: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:18.086: 55071871424: ../libfprint/drivers/elan.c:651
+(process:200877): libfprint-elan-DEBUG: 19:33:18.086: calibration mean: 8358, bg mean: 8353, delta: 5
+(process:200877): libfprint-SSM-DEBUG: 19:33:18.086: [elan] CALIBRATE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:33:18.086: 55071871612: ../libfprint/drivers/elan.c:810
+(process:200877): libfprint-elan-DEBUG: 19:33:18.086: 55071871674: ../libfprint/drivers/elan.c:637
+(process:200877): libfprint-elan-DEBUG: 19:33:18.086: 55071871736: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:18.086: [elan] CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:18.087: 55071872096: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:18.087: 55071872160: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:18.087: 55071872220: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:18.087: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:33:18.087: 55071872339: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:18.087: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:18.087: 55071872676: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:18.087: 55071872762: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:18.087: 55071872823: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:28.088: 55081873566: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-SSM-DEBUG: 19:33:28.088: [elan] SSM CAPTURE_NUM_STATES failed in state 1 with error: transfer timed out
+(process:200877): libfprint-SSM-DEBUG: 19:33:28.088: [elan] CAPTURE_NUM_STATES completed with error: transfer timed out
+(process:200877): libfprint-elan-DEBUG: 19:33:28.089: 55081873853: ../libfprint/drivers/elan.c:603
+(process:200877): libfprint-elan-DEBUG: 19:33:28.089: swipe too short: want >= 7 frames, got 0
+(process:200877): libfprint-image_device-DEBUG: 19:33:28.089: Reporting retry during enroll
+(process:200877): libfprint-device-DEBUG: 19:33:28.089: Device reported enroll progress, reported 0 of 5 have been completed
+  stage 0: err=None
+(process:200877): libfprint-image_device-DEBUG: 19:33:28.089: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF
+
+(process:200877): libfprint-image_device-WARNING **: 19:33:28.089: Internal state machine issue: transition from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF should not happen!
+(process:200877): libfprint-elan-DEBUG: 19:33:28.089: 55081874513: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-device-DEBUG: 19:33:28.089: Device reported finger status change: FP_FINGER_STATUS_NEEDED -> FP_FINGER_STATUS_NONE
+(process:200877): libfprint-elan-DEBUG: 19:33:28.089: 55081874660: ../libfprint/drivers/elan.c:517
+(process:200877): libfprint-elan-DEBUG: 19:33:28.089: 55081874722: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:28.089: [elan] STOP_CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:28.090: 55081874852: ../libfprint/drivers/elan.c:476
+(process:200877): libfprint-elan-DEBUG: 19:33:28.090: 55081875316: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:28.090: 55081875395: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:28.090: 55081875456: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:28.090: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:33:28.090: 55081875574: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:28.090: [elan] STOP_CAPTURE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:33:28.090: 55081875704: ../libfprint/drivers/elan.c:493
+(process:200877): libfprint-image_device-DEBUG: 19:33:28.090: Image device reported finger status: off
+(process:200877): libfprint-image_device-DEBUG: 19:33:28.090: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF to FPI_IMAGE_DEVICE_STATE_IDLE
+(process:200877): libfprint-elan-DEBUG: 19:33:28.091: 55081875906: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-image_device-DEBUG: 19:33:28.091: Image device internal state change from FPI_IMAGE_DEVICE_STATE_IDLE to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON
+(process:200877): libfprint-elan-DEBUG: 19:33:28.091: 55081876072: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-elan-DEBUG: 19:33:28.091: 55081876134: ../libfprint/drivers/elan.c:826
+(process:200877): libfprint-elan-DEBUG: 19:33:28.091: 55081876193: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:28.091: [elan] CALIBRATE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:28.091: 55081876319: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-device-DEBUG: 19:33:28.091: Device reported finger status change: FP_FINGER_STATUS_NONE -> FP_FINGER_STATUS_NEEDED
+(process:200877): libfprint-elan-DEBUG: 19:33:28.092: 55081876966: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:28.092: 55081877068: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:28.092: 55081877135: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:28.143: 55081928402: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:28.143: 55081928484: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:28.143: [elan] CALIBRATE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:28.143: 55081928527: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:28.143: 55081928546: ../libfprint/drivers/elan.c:156
+(process:200877): libfprint-elan-DEBUG: 19:33:28.143: 55081928566: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:28.143: [elan] CALIBRATE_NUM_STATES entering state 2
+(process:200877): libfprint-elan-DEBUG: 19:33:28.143: 55081928609: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:28.143: 55081928810: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:28.143: 55081928835: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081928853: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929060: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929082: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:28.144: [elan] CALIBRATE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929120: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929138: ../libfprint/drivers/elan.c:651
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: calibration mean: 8358, bg mean: 8349, delta: 9
+(process:200877): libfprint-SSM-DEBUG: 19:33:28.144: [elan] CALIBRATE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929196: ../libfprint/drivers/elan.c:810
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929215: ../libfprint/drivers/elan.c:637
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929241: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:28.144: [elan] CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929347: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929367: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929385: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929421: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:28.144: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929537: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929557: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:28.144: 55081929576: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.145: 55091930132: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.145: [elan] SSM CAPTURE_NUM_STATES failed in state 1 with error: transfer timed out
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.145: [elan] CAPTURE_NUM_STATES completed with error: transfer timed out
+(process:200877): libfprint-elan-DEBUG: 19:33:38.145: 55091930263: ../libfprint/drivers/elan.c:603
+(process:200877): libfprint-elan-DEBUG: 19:33:38.145: swipe too short: want >= 7 frames, got 0
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.145: Reporting retry during enroll
+(process:200877): libfprint-device-DEBUG: 19:33:38.145: Device reported enroll progress, reported 0 of 5 have been completed
+  stage 0: err=None
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.145: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF
+
+(process:200877): libfprint-image_device-WARNING **: 19:33:38.145: Internal state machine issue: transition from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF should not happen!
+(process:200877): libfprint-elan-DEBUG: 19:33:38.145: 55091930499: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-device-DEBUG: 19:33:38.145: Device reported finger status change: FP_FINGER_STATUS_NEEDED -> FP_FINGER_STATUS_NONE
+(process:200877): libfprint-elan-DEBUG: 19:33:38.145: 55091930545: ../libfprint/drivers/elan.c:517
+(process:200877): libfprint-elan-DEBUG: 19:33:38.145: 55091930564: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.145: [elan] STOP_CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:38.145: 55091930604: ../libfprint/drivers/elan.c:476
+(process:200877): libfprint-elan-DEBUG: 19:33:38.145: 55091930752: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.145: 55091930778: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.145: 55091930796: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.145: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:33:38.145: 55091930833: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.146: [elan] STOP_CAPTURE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:33:38.146: 55091930871: ../libfprint/drivers/elan.c:493
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.146: Image device reported finger status: off
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.146: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF to FPI_IMAGE_DEVICE_STATE_IDLE
+(process:200877): libfprint-elan-DEBUG: 19:33:38.146: 55091930980: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.146: Image device internal state change from FPI_IMAGE_DEVICE_STATE_IDLE to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON
+(process:200877): libfprint-elan-DEBUG: 19:33:38.146: 55091931115: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-elan-DEBUG: 19:33:38.146: 55091931136: ../libfprint/drivers/elan.c:826
+(process:200877): libfprint-elan-DEBUG: 19:33:38.146: 55091931154: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.146: [elan] CALIBRATE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:38.146: 55091931193: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-device-DEBUG: 19:33:38.146: Device reported finger status change: FP_FINGER_STATUS_NONE -> FP_FINGER_STATUS_NEEDED
+(process:200877): libfprint-elan-DEBUG: 19:33:38.146: 55091931338: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.146: 55091931358: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.146: 55091931462: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.200: 55091985500: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.200: 55091985666: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.200: [elan] CALIBRATE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:38.200: 55091985836: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:38.201: 55091985897: ../libfprint/drivers/elan.c:156
+(process:200877): libfprint-elan-DEBUG: 19:33:38.201: 55091985961: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.201: [elan] CALIBRATE_NUM_STATES entering state 2
+(process:200877): libfprint-elan-DEBUG: 19:33:38.201: 55091986129: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:38.202: 55091986892: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.202: 55091986977: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.202: 55091987066: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.202: 55091987363: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.202: 55091987440: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.202: [elan] CALIBRATE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:38.202: 55091987566: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:38.202: 55091987628: ../libfprint/drivers/elan.c:651
+(process:200877): libfprint-elan-DEBUG: 19:33:38.202: calibration mean: 8358, bg mean: 8356, delta: 2
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.202: [elan] CALIBRATE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:33:38.202: 55091987814: ../libfprint/drivers/elan.c:810
+(process:200877): libfprint-elan-DEBUG: 19:33:38.203: 55091987875: ../libfprint/drivers/elan.c:637
+(process:200877): libfprint-elan-DEBUG: 19:33:38.203: 55091987936: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.203: [elan] CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:38.203: 55091988420: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.203: 55091988487: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.203: 55091988547: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.203: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:33:38.203: 55091988664: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.203: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:38.204: 55091989131: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.204: 55091989204: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.204: 55091989267: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.334: 55092119374: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.334: 55092119523: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.334: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-device-DEBUG: 19:33:38.334: Device reported finger status change: FP_FINGER_STATUS_NEEDED -> FP_FINGER_STATUS_NEEDED | FP_FINGER_STATUS_PRESENT
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.335: Image device reported finger status: on
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.335: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_CAPTURE
+(process:200877): libfprint-elan-DEBUG: 19:33:38.335: 55092120105: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-elan-DEBUG: 19:33:38.335: 55092120701: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.335: 55092120774: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.335: 55092120837: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.367: 55092152458: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.367: 55092152594: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.367: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:38.367: 55092152733: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:38.368: 55092152843: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.368: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:38.369: 55092154115: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.369: 55092154191: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.369: 55092154254: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.411: 55092196456: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.411: 55092196535: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.411: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.411: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:38.412: 55092196925: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.412: 55092196994: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.412: 55092197081: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.444: 55092228850: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.444: 55092228936: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.444: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:38.444: 55092229012: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:38.444: 55092229107: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.444: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:38.444: 55092229328: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.444: 55092229349: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.444: 55092229367: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.487: 55092272597: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.487: 55092272739: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.487: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.488: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:38.488: 55092273290: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.488: 55092273365: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.488: 55092273428: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.520: 55092305313: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.520: 55092305455: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.520: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:38.520: 55092305583: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:38.520: 55092305644: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.520: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:38.521: 55092306165: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.521: 55092306242: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.521: 55092306306: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.564: 55092349366: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.564: 55092349447: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.564: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.564: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:38.564: 55092349617: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.564: 55092349637: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.564: 55092349654: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.596: 55092381567: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.596: 55092381712: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.596: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:38.597: 55092381841: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:38.597: 55092381939: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.597: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:38.597: 55092382500: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.597: 55092382570: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.597: 55092382631: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.640: 55092425516: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.640: 55092425587: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.640: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.640: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:38.641: 55092425853: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.641: 55092425875: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.641: 55092425894: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.672: 55092457521: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.672: 55092457606: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.672: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:38.672: 55092457653: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:38.672: 55092457680: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.672: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:38.673: 55092458151: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.673: 55092458185: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.673: 55092458205: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.716: 55092501188: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.716: 55092501329: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.716: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.716: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:38.716: 55092501771: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.717: 55092501845: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.717: 55092501906: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.748: 55092533527: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.748: 55092533673: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.748: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:38.748: 55092533811: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:38.749: 55092533913: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.749: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:38.750: 55092534866: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.750: 55092534950: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.750: 55092535045: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.792: 55092577569: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.792: 55092577644: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.792: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.792: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:38.793: 55092577872: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.793: 55092577899: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.793: 55092577919: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.824: 55092609815: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.825: 55092609898: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.825: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:38.825: 55092609940: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:38.825: 55092609980: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.825: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:38.825: 55092610192: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.825: 55092610219: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.825: 55092610239: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.868: 55092653824: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.869: 55092653899: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.869: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.869: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:38.869: 55092654188: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.869: 55092654216: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.869: 55092654235: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.901: 55092685891: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.901: 55092685960: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.901: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:38.901: 55092686053: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:38.901: 55092686073: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.901: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:38.901: 55092686470: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.901: 55092686497: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.901: 55092686570: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.944: 55092729687: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.945: 55092729843: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.945: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:38.945: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:38.946: 55092730893: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.946: 55092730985: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.946: 55092731075: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:38.977: 55092762257: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.977: 55092762397: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.977: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:38.977: 55092762530: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:38.977: 55092762629: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:38.977: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:38.978: 55092763136: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:38.978: 55092763258: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:38.978: 55092763389: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.021: 55092806344: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.021: 55092806447: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.021: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.021: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.021: 55092806711: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.021: 55092806743: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.021: 55092806767: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.053: 55092838563: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.053: 55092838700: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.053: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.053: 55092838828: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.054: 55092838931: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.054: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.054: 55092839411: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.054: 55092839485: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.054: 55092839548: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.097: 55092882570: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.097: 55092882705: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.097: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.098: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.098: 55092883316: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.098: 55092883405: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.098: 55092883469: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.130: 55092914882: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.130: 55092914941: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.130: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.130: 55092914984: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.130: 55092915027: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.130: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.130: 55092915271: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.130: 55092915305: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.130: 55092915325: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.173: 55092958549: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.173: 55092958691: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.173: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.173: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.174: 55092959233: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.174: 55092959339: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.174: 55092959402: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.206: 55092990931: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.206: 55092991093: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.206: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.206: 55092991224: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.206: 55092991316: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.206: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.207: 55092992516: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.207: 55092992596: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.207: 55092992660: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.250: 55093035117: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.250: 55093035210: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.250: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.250: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.250: 55093035428: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.250: 55093035450: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.250: 55093035469: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.282: 55093067533: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.282: 55093067718: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.282: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.283: 55093067848: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.283: 55093067946: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.283: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.284: 55093069389: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.284: 55093069465: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.284: 55093069527: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.326: 55093111754: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.327: 55093111897: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.327: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.327: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.327: 55093112426: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.327: 55093112499: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.327: 55093112561: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.359: 55093144312: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.359: 55093144412: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.359: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.359: 55093144454: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.359: 55093144492: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.359: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.359: 55093144692: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.359: 55093144713: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.359: 55093144731: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.403: 55093188436: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.403: 55093188614: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.403: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.403: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.404: 55093189118: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.404: 55093189225: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.404: 55093189286: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.436: 55093220855: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.436: 55093220997: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.436: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.436: 55093221159: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.436: 55093221264: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.436: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.436: 55093221742: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.436: 55093221810: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.437: 55093221870: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.480: 55093265030: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.480: 55093265109: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.480: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.480: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.480: 55093265318: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.480: 55093265338: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.480: 55093265356: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.512: 55093297414: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.512: 55093297562: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.512: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.512: 55093297691: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.513: 55093297961: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.513: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.513: 55093298533: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.513: 55093298602: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.513: 55093298664: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.557: 55093341846: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.557: 55093341979: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.557: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.557: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.557: 55093342541: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.557: 55093342610: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.557: 55093342672: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.589: 55093374255: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.589: 55093374318: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.589: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.589: 55093374367: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.589: 55093374400: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.589: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.589: 55093374651: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.589: 55093374684: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.589: 55093374726: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.633: 55093418047: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.633: 55093418131: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.633: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.633: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.633: 55093418382: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.633: 55093418422: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.633: 55093418444: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.665: 55093450182: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.665: 55093450361: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.665: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.665: 55093450453: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.665: 55093450528: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.665: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.666: 55093451042: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.666: 55093451090: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.666: 55093451132: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.709: 55093494268: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.709: 55093494394: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.709: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.709: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.709: 55093494611: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.709: 55093494643: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.709: 55093494664: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.741: 55093526416: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.741: 55093526501: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.741: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.741: 55093526546: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.741: 55093526588: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.741: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.742: 55093527192: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.742: 55093527267: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.742: 55093527328: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.785: 55093570284: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.785: 55093570418: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.785: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.785: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.786: 55093570913: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.786: 55093570985: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.786: 55093571072: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.818: 55093602894: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.818: 55093602967: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.818: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.818: 55093603055: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.818: 55093603110: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.818: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.818: 55093603409: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.818: 55093603446: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.818: 55093603470: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.861: 55093646751: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.862: 55093646899: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.862: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.862: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.862: 55093647417: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.862: 55093647509: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.862: 55093647573: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.894: 55093679265: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.894: 55093679407: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.894: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.894: 55093679542: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.894: 55093679651: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.894: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.895: 55093680258: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.895: 55093680331: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.895: 55093680397: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.938: 55093723761: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.938: 55093723845: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.939: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:39.939: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:39.939: 55093724089: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.939: 55093724111: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.939: 55093724130: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:39.971: 55093756087: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.971: 55093756224: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.971: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:39.971: 55093756351: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:39.971: 55093756448: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:39.971: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:39.972: 55093756942: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:39.972: 55093757048: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:39.972: 55093757110: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.015: 55093800254: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.015: 55093800358: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.015: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:40.015: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:40.016: 55093800848: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.016: 55093800925: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.016: 55093800989: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.047: 55093832379: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.047: 55093832436: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.047: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:40.047: 55093832479: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:40.047: 55093832507: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.047: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:40.047: 55093832742: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.047: 55093832765: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.047: 55093832799: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.091: 55093876152: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.091: 55093876243: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.091: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:40.091: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:40.091: 55093876608: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.091: 55093876682: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.091: 55093876744: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.123: 55093908401: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.123: 55093908542: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.123: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:40.123: 55093908672: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:40.123: 55093908773: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.124: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:40.124: 55093909262: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.124: 55093909351: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.124: 55093909418: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.167: 55093952449: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.167: 55093952531: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.167: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:40.167: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:40.167: 55093952717: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.167: 55093952744: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.167: 55093952763: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.199: 55093984560: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.199: 55093984718: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.199: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:40.200: 55093984849: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:40.200: 55093984948: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.200: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:40.200: 55093985523: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.200: 55093985621: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.200: 55093985688: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.243: 55094028602: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.243: 55094028747: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.243: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:40.244: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:40.244: 55094029183: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.244: 55094029270: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.244: 55094029336: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.276: 55094060909: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.276: 55094060971: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.276: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:40.276: 55094061033: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:40.276: 55094061072: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.276: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:40.276: 55094061545: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.276: 55094061569: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.276: 55094061589: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.319: 55094104608: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.319: 55094104793: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.320: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:40.320: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:40.320: 55094105250: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.320: 55094105322: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.320: 55094105386: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.352: 55094137230: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.352: 55094137342: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.352: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:40.352: 55094137385: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:40.352: 55094137426: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.352: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:40.352: 55094137629: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.352: 55094137652: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.352: 55094137672: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.396: 55094181041: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.396: 55094181119: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.396: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:40.396: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:40.396: 55094181319: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.396: 55094181350: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.396: 55094181370: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.428: 55094213468: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.428: 55094213656: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.428: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:40.428: 55094213786: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:40.429: 55094213883: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.429: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:40.429: 55094214489: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.429: 55094214590: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.429: 55094214658: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.473: 55094258210: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.473: 55094258357: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.473: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:40.473: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:40.474: 55094258920: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.474: 55094258994: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.474: 55094259091: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.505: 55094290524: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.505: 55094290589: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.505: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:40.505: 55094290640: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:40.505: 55094290678: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.505: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:40.506: 55094290954: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.506: 55094290990: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.506: 55094291023: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.549: 55094334378: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.549: 55094334463: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.549: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-image_device-DEBUG: 19:33:40.549: Image device reported finger status: on
+(process:200877): libfprint-elan-DEBUG: 19:33:40.549: 55094334648: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.549: 55094334697: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:40.549: 55094334741: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:40.581: 55094366570: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:40.581: 55094366649: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.581: [elan] CAPTURE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:40.581: 55094366699: ../libfprint/drivers/elan.c:203
+(process:200877): libfprint-elan-DEBUG: 19:33:40.581: 55094366760: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:40.581: [elan] CAPTURE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:33:40.581: 55094366816: ../libfprint/drivers/elan.c:603
+(process:200877): libfprint-elan-DEBUG: 19:33:40.581: 55094366836: ../libfprint/drivers/elan.c:325
+(process:200877): libfprint-elan-DEBUG: 19:33:40.582: 55094366894: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.583: 55094368707: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.585: 55094370528: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.587: 55094372282: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.589: 55094374049: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.591: 55094375903: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.592: 55094377672: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.594: 55094379626: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.596: 55094381348: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.598: 55094383073: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.600: 55094384882: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.601: 55094386618: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.603: 55094388340: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.605: 55094390081: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.606: 55094391797: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.608: 55094393653: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.610: 55094395225: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.610: 55094395823: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.611: 55094396412: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.612: 55094396941: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.612: 55094397493: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.613: 55094398264: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.613: 55094398791: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.614: 55094399331: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.615: 55094399860: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.615: 55094400404: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.616: 55094400932: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-elan-DEBUG: 19:33:40.616: 55094401652: ../libfprint/drivers/elan.c:277
+(process:200877): libfprint-assembling-DEBUG: 19:33:40.898: calc delta completed in 0.280591 secs
+(process:200877): libfprint-assembling-DEBUG: 19:33:41.177: calc delta completed in 0.279551 secs
+(process:200877): libfprint-assembling-DEBUG: 19:33:41.177: errors: 76086 rev: 83041
+(process:200877): libfprint-assembling-DEBUG: 19:33:41.457: calc delta completed in 0.279724 secs
+(process:200877): libfprint-assembling-DEBUG: 19:33:41.457: height is 260
+(process:200877): libfprint-image_device-DEBUG: 19:33:41.458: Image device captured an image
+(process:200877): libfprint-image_device-DEBUG: 19:33:41.458: Image device internal state change from FPI_IMAGE_DEVICE_STATE_CAPTURE to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF
+(process:200877): libfprint-elan-DEBUG: 19:33:41.458: 55095243380: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-device-DEBUG: 19:33:41.458: Device reported finger status change: FP_FINGER_STATUS_NEEDED | FP_FINGER_STATUS_PRESENT -> FP_FINGER_STATUS_PRESENT
+(process:200877): libfprint-elan-DEBUG: 19:33:41.458: 55095243427: ../libfprint/drivers/elan.c:517
+(process:200877): libfprint-elan-DEBUG: 19:33:41.458: 55095243446: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.458: [elan] STOP_CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:41.458: 55095243497: ../libfprint/drivers/elan.c:476
+(process:200877): libfprint-elan-DEBUG: 19:33:41.458: 55095243790: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.458: 55095243814: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:41.458: 55095243833: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:41.459: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:33:41.459: 55095244015: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.459: [elan] STOP_CAPTURE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:33:41.459: 55095244055: ../libfprint/drivers/elan.c:493
+(process:200877): libfprint-device-DEBUG: 19:33:41.459: Device reported finger status change: FP_FINGER_STATUS_PRESENT -> FP_FINGER_STATUS_NONE
+(process:200877): libfprint-image_device-DEBUG: 19:33:41.459: Image device reported finger status: off
+(process:200877): libfprint-image_device-DEBUG: 19:33:41.459: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_OFF to FPI_IMAGE_DEVICE_STATE_IDLE
+(process:200877): libfprint-elan-DEBUG: 19:33:41.459: 55095244179: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-image-DEBUG: 19:33:41.470: Minutiae scan completed in 0.011885 secs
+(process:200877): libfprint-device-DEBUG: 19:33:41.470: Device reported enroll progress, reported 1 of 5 have been completed
+  stage 1: err=None
+(process:200877): libfprint-image_device-DEBUG: 19:33:41.470: Image device internal state change from FPI_IMAGE_DEVICE_STATE_IDLE to FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON
+(process:200877): libfprint-elan-DEBUG: 19:33:41.470: 55095255785: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-elan-DEBUG: 19:33:41.470: 55095255807: ../libfprint/drivers/elan.c:826
+(process:200877): libfprint-elan-DEBUG: 19:33:41.470: 55095255827: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.471: [elan] CALIBRATE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:41.471: 55095255870: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-device-DEBUG: 19:33:41.471: Device reported finger status change: FP_FINGER_STATUS_NONE -> FP_FINGER_STATUS_NEEDED
+(process:200877): libfprint-elan-DEBUG: 19:33:41.471: 55095256056: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.471: 55095256079: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:41.471: 55095256140: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:41.614: 55095399709: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.615: 55095399856: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.615: [elan] CALIBRATE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:41.615: 55095399921: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:41.615: 55095399939: ../libfprint/drivers/elan.c:156
+(process:200877): libfprint-elan-DEBUG: 19:33:41.615: 55095399959: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.615: [elan] CALIBRATE_NUM_STATES entering state 2
+(process:200877): libfprint-elan-DEBUG: 19:33:41.615: 55095400017: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:41.615: 55095400168: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.615: 55095400193: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:41.615: 55095400213: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:41.657: 55095442478: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.657: 55095442576: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.657: [elan] CALIBRATE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:41.657: 55095442619: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:41.657: 55095442638: ../libfprint/drivers/elan.c:651
+(process:200877): libfprint-elan-DEBUG: 19:33:41.657: calibration mean: 8358, bg mean: 9901, delta: 1543
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.657: [elan] CALIBRATE_NUM_STATES entering state 4
+(process:200877): libfprint-elan-DEBUG: 19:33:41.657: 55095442698: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:41.657: 55095442839: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.658: 55095442868: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:41.658: 55095442887: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:41.700: 55095485513: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.700: 55095485590: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.700: [elan] CALIBRATE_NUM_STATES entering state 5
+(process:200877): libfprint-elan-DEBUG: 19:33:41.700: 55095485634: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:41.700: calibration status: 0x01
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.750: [elan] CALIBRATE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:41.750: 55095535710: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:41.751: 55095535948: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.751: 55095535970: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:41.751: 55095535989: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:41.920: 55095705502: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.920: 55095705621: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.920: [elan] CALIBRATE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:41.920: 55095705715: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:41.920: 55095705760: ../libfprint/drivers/elan.c:156
+(process:200877): libfprint-elan-DEBUG: 19:33:41.920: 55095705807: ../libfprint/drivers/elan.c:118
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.921: [elan] CALIBRATE_NUM_STATES entering state 2
+(process:200877): libfprint-elan-DEBUG: 19:33:41.921: 55095705912: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:41.921: 55095706170: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.921: 55095706222: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:41.921: 55095706264: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:41.963: 55095748468: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.963: 55095748586: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.963: [elan] CALIBRATE_NUM_STATES entering state 3
+(process:200877): libfprint-elan-DEBUG: 19:33:41.963: 55095748679: ../libfprint/drivers/elan.c:708
+(process:200877): libfprint-elan-DEBUG: 19:33:41.963: 55095748722: ../libfprint/drivers/elan.c:651
+(process:200877): libfprint-elan-DEBUG: 19:33:41.963: calibration mean: 7920, bg mean: 7966, delta: 46
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.963: [elan] CALIBRATE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:33:41.964: 55095748859: ../libfprint/drivers/elan.c:810
+(process:200877): libfprint-elan-DEBUG: 19:33:41.964: 55095748904: ../libfprint/drivers/elan.c:637
+(process:200877): libfprint-elan-DEBUG: 19:33:41.964: 55095748949: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.964: [elan] CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:41.964: 55095749340: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.964: 55095749395: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:41.964: 55095749440: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:41.964: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:33:41.964: 55095749529: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:41.964: [elan] CAPTURE_NUM_STATES entering state 1
+(process:200877): libfprint-elan-DEBUG: 19:33:41.965: 55095749873: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:41.965: 55095749922: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:41.965: 55095749966: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:42.049: 55095834601: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:42.049: 55095834679: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:42.049: [elan] CAPTURE_NUM_STATES entering state 2
+(process:200877): libfprint-SSM-DEBUG: 19:33:42.049: [elan] SSM CAPTURE_NUM_STATES failed in state 2 with error: The driver encountered a protocol error with the device.
+(process:200877): libfprint-SSM-DEBUG: 19:33:42.049: [elan] CAPTURE_NUM_STATES completed with error: The driver encountered a protocol error with the device.
+(process:200877): libfprint-elan-DEBUG: 19:33:42.049: 55095834788: ../libfprint/drivers/elan.c:603
+(process:200877): libfprint-image_device-DEBUG: 19:33:42.049: Deactivating image device
+(process:200877): libfprint-image_device-DEBUG: 19:33:42.049: Image device internal state change from FPI_IMAGE_DEVICE_STATE_AWAIT_FINGER_ON to FPI_IMAGE_DEVICE_STATE_DEACTIVATING
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095834865: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095834888: ../libfprint/drivers/elan.c:1009
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095834907: ../libfprint/drivers/elan.c:517
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095834926: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-SSM-DEBUG: 19:33:42.050: [elan] STOP_CAPTURE_NUM_STATES entering state 0
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095834965: ../libfprint/drivers/elan.c:476
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095835138: ../libfprint/drivers/elan.c:356
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095835160: ../libfprint/drivers/elan.c:376
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095835178: ../libfprint/drivers/elan.c:389
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: skipping read, not expecting anything
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095835215: ../libfprint/drivers/elan.c:345
+(process:200877): libfprint-SSM-DEBUG: 19:33:42.050: [elan] STOP_CAPTURE_NUM_STATES completed successfully
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095835253: ../libfprint/drivers/elan.c:493
+(process:200877): libfprint-image_device-DEBUG: 19:33:42.050: Image device deactivation completed
+(process:200877): libfprint-image_device-DEBUG: 19:33:42.050: Image device internal state change from FPI_IMAGE_DEVICE_STATE_DEACTIVATING to FPI_IMAGE_DEVICE_STATE_INACTIVE
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095835322: ../libfprint/drivers/elan.c:994
+(process:200877): libfprint-device-DEBUG: 19:33:42.050: Device reported generic error ([FP_DEVICE_ERROR_PROTO] The driver encountered a protocol error with the device.) during action; action was: FPI_DEVICE_ACTION_ENROLL
+(process:200877): libfprint-device-DEBUG: 19:33:42.050: Device reported enroll completion (print: (nil), error: [FP_DEVICE_ERROR_PROTO] The driver encountered a protocol error with the device.)
+(process:200877): libfprint-device-DEBUG: 19:33:42.050: Device reported finger status change: FP_FINGER_STATUS_NEEDED -> FP_FINGER_STATUS_NONE
+(process:200877): libfprint-device-DEBUG: 19:33:42.050: Completing action FPI_DEVICE_ACTION_ENROLL in idle!
+(process:200877): libfprint-device-DEBUG: 19:33:42.050: Updated temperature model after 64.25 seconds, ratio 0.27 -> 0.49, active 0 -> 0, FP_TEMPERATURE_WARM -> FP_TEMPERATURE_WARM
+ENROLL FAILED: The driver encountered a protocol error with the device.
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095835736: ../libfprint/drivers/elan.c:973
+(process:200877): libfprint-elan-DEBUG: 19:33:42.050: 55095835758: ../libfprint/drivers/elan.c:100
+(process:200877): libfprint-image_device-DEBUG: 19:33:42.050: Image device close completed
+(process:200877): libfprint-device-DEBUG: 19:33:42.050: Device reported close completion (error: none)
+(process:200877): libfprint-device-DEBUG: 19:33:42.051: Completing action FPI_DEVICE_ACTION_CLOSE in idle!
+(process:200877): libfprint-device-DEBUG: 19:33:42.051: Updated temperature model after 0.00 seconds, ratio 0.49 -> 0.49, active 0 -> 0, FP_TEMPERATURE_WARM -> FP_TEMPERATURE_WARM
+libusb: warning [libusb_exit] device 1.6 still referenced
+libusb: warning [libusb_exit] device 1.1 still referenced
+### exit: 0
