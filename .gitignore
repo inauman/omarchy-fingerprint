@@ -2,3 +2,7 @@
 # keep local, never push. FINDINGS.md describes what they showed.
 *.pgm
 tools/finger*.png
+build/
+pool/
+hw-test/
+tools/elanpress/elanpress-eval

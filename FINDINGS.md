@@ -233,3 +233,78 @@ authors did not anticipate.
 Conclusion: `elanspi` support for ELAN7001 is real in principle but does not work
 on this machine. Excluded from fprintd via the driver allowlist. Worth retesting
 after a future kernel or libfprint update — it is a one-word change back.
+
+---
+
+## Addendum (2026-09-06): the press-mode driver
+
+Three findings that change the conclusion above, and the driver built on them.
+
+### The sensor is 64 × 88, not 64 × 50
+
+`sensor dimensions, WxH: 64x88` appears in every log in `tools/`. The elan
+driver caps `frame_height` at `ELAN_MAX_FRAME_HEIGHT` (50) and
+`elan_save_frame` discards the outer 19 rows of every frame, because tall
+frames assemble badly *as swipe strips*. In press mode there is nothing to
+assemble, so the full frame is usable: 5632 px instead of 3200, a 76 % larger
+patch. The ridge period in the captures is ~8 px perpendicular to the ridges,
+so the pad is ~500 dpi and ~3.2 × 4.4 mm.
+
+### NBIS does not score small prints badly — it refuses to score them
+
+`libfprint/nbis/include/bozorth.h` has `MIN_COMPUTABLE_BOZORTH_MINUTIAE 10`;
+`bz_match_score()` returns a constant zero when either print has fewer. That
+is why `verify-no-match` was absolute rather than marginal, why "Minutiae
+detection failed" appeared on the single-frame attempt, and why no threshold
+or `ppmm` value could have helped. The `ppmm` fix in the patch is still
+correct, just irrelevant to this device.
+
+### Two other people hit the same wall and solved it the same way
+
+- [dragosol/fpmatch](https://github.com/dragosol/fpmatch): a correlation
+  matcher developed against **this exact product ID** (a 144 × 64 variant of
+  it) with a libfprint integration patch. Its measured conclusion: the
+  matcher is not the limit, capture overlap is, and the vendor's advantage is
+  its "move your finger" enrolment, not its algorithm.
+- [filip-rs/libfprint `elanpress`](https://github.com/filip-rs/libfprint):
+  a press-mode FpDevice driver for the sibling `04f3:0c6e`, host-side NCC
+  matching, verified through fprintd on hardware. Genuine presses of
+  overlapping regions correlated at 0.59–0.93, impostors below 0.48.
+- [Ajaneeshwar/x571gt-fingerprint](https://github.com/Ajaneeshwar/x571gt-fingerprint):
+  the same swipe-versus-press diagnosis for the ELAN7001 SPI die that this
+  laptop's *built-in* sensor uses, solved with press mode plus SIGFM.
+
+### What was built
+
+`tools/elanpress/`: an `elanpress` driver for `0c3d` (and `0c6e`) that reads
+full frames, validates the background against the device's calibration mean
+instead of running the deadlocking calibration loop, keeps up to three
+distinct frames per touch, enrols ten touches, and matches by normalised
+cross-correlation over translation and ±20° rotation, coarse-to-fine, in
+~25 ms per image pair. Templates are the images (`FPI_PRINT_RAW`,
+~170 KB per finger). Offline self-test on this pad's own captures: every
+shifted and rotated copy recovered with the right offset, mirrored impostor
+at 0.11, threshold 0.55.
+
+**Not yet run on the hardware** — the USB node is root-only and this session
+had no root. `sudo tools/elanpress/hw-test.sh` is the next step.
+
+### Hardware results and tuning (same day)
+
+First run, 10-touch enrolment at threshold 0.55: the index matched on every
+press, but other fingers were accepted too. A 140-image pool (index 20
+touches, middle/ring/thumb 12 each) showed why: impostor scores reach
+0.757, always at the smallest allowed overlap (40 % of the frame) and
+usually near the rotation limit. Parallel ridges of any two fingers
+correlate over a 48 × 48 px patch.
+
+Tried and rejected on that pool (details in `tools/elanpress/README.md`):
+higher overlap floors, narrower rotation, sidelobe-normalised scores,
+block-consistency scores, overlap-dependent thresholds, mosaic templates.
+None moved the impostor ceiling. What helped was coverage: a 20-touch
+template raised the genuine acceptance at zero false accepts from 24 % to
+47 % per image and 60 % per touch.
+
+Shipped: threshold 0.76, 20 enrolment touches, 3 probe frames per touch,
+threaded matching. Expect roughly 60 % of touches to be accepted and a
+second press now and then; 0 of 91 same-person impostor images accepted.
