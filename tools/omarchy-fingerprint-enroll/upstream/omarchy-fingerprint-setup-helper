@@ -17,7 +17,9 @@ GATE="auth      [success=1 default=ignore] pam_exec.so quiet /usr/bin/omarchy-hw
 status() {
   if grep -qs pam_fprintd.so /etc/pam.d/sudo && [[ -f /etc/pam.d/omarchy-lock-fingerprint ]]; then
     echo ready
-  elif command -v fprintd-enroll >/dev/null && [[ -f $RULE ]]; then
+  elif command -v fprintd-enroll >/dev/null; then
+    # packages are in; the polkit rule lives in a root-only directory, so it
+    # cannot be checked from here and `install` re-adds it anyway
     echo enrol
   else
     echo install

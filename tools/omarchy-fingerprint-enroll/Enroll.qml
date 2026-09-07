@@ -90,6 +90,7 @@ Item {
     root.message = "Fingerprint login is off"
     root.hint = "Press Enter to turn it on. You will be asked for your password once"
     root.errorFlash = false
+    listProc.running = true
   }
 
   function beginSetup() {
@@ -100,11 +101,14 @@ Item {
     helperProc.running = true
   }
 
+  readonly property int confirmMaxTries: 5
+
   function beginConfirm() {
     root.phase = "confirm"
     root.confirmTries += 1
-    root.message = "Touch the sensor once to confirm"
-    root.hint = ""
+    root.message = root.confirmTries === 1 ? "Touch the sensor once to confirm"
+                 : "Didn't match, touch again (" + root.confirmTries + " of " + root.confirmMaxTries + ")"
+    root.hint = "Press the way you normally would"
     root.fingerPresent = false
     verifyProc.running = true
   }
@@ -268,8 +272,14 @@ Item {
       if (!root.opened) return
       if (root.phase === "installing") {
         if (exitCode === 0) {
-          root.showPicker()
-          root.message = "Choose the finger to enrol first"
+          if (root.enrolled.length > 0) {
+            root.finger = root.enrolled[0]
+            root.confirmTries = 0
+            root.beginConfirm()
+          } else {
+            root.showPicker()
+            root.message = "Choose the finger to enrol first"
+          }
         } else {
           root.showSetup()
           root.message = exitCode === 126 || exitCode === 127 ? "Set-up was cancelled" : "Set-up failed (" + exitCode + ")"
@@ -300,20 +310,19 @@ Item {
     stdout: SplitParser {
       onRead: function(line) {
         var m = String(line).match(/Verify result:\s*(\S+)/)
-        if (!m) return
+        if (!m || root.phase !== "confirm") return
         if (m[1] === "verify-match") {
           root.message = "Matched"
           passFlashTimer.restart()
           root.beginEnable()
         } else if (m[1] === "verify-no-match") {
           errorFlashTimer.restart()
-          if (root.confirmTries < 3) {
-            root.message = "Didn't match, touch again"
+          if (root.confirmTries < root.confirmMaxTries) {
             retryConfirmTimer.restart()
           } else {
             root.phase = "failed"
-            root.message = "Couldn't verify the new print"
-            root.hint = "Press Enter to enrol again, Esc to close"
+            root.message = "Couldn't verify " + EnrollModel.fingerLabel(root.finger).toLowerCase()
+            root.hint = "Press Enter to enrol it again with more coverage, Esc to close"
           }
         }
       }
@@ -417,7 +426,8 @@ Item {
       }
     }
     onExited: function(exitCode) {
-      if (root.phase === "done" || root.phase === "failed" || !root.opened) return
+      if (!root.opened) return
+      if (root.phase !== "starting" && root.phase !== "waiting") return
       root.applyStep({ kind: "failed", message: exitCode === 0 ? "Enrolment ended early" : "Enrolment failed (fprintd-enroll exited " + exitCode + ")" })
     }
   }
@@ -477,7 +487,7 @@ Item {
             if (root.phase === "setup") root.beginSetup()
             else if (root.phase === "failed" && root.setupFlow) {
               if (root.message.indexOf("turn on") !== -1 || root.message.indexOf("Turning") !== -1) root.beginEnable()
-              else root.showPicker()
+              else root.startEnroll(root.finger)
             }
             return
           }
