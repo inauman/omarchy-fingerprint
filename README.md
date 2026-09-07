@@ -137,10 +137,14 @@ and the drop-in, then `systemctl daemon-reload`.
 4. **Built-in ELAN7001**: try the SIGFM press-mode patch linked above; it is
    the same die (`eFSA80SC`) in another ASUS model, and the same
    swipe-versus-press diagnosis.
-5. **Upstream**: the driver to libfprint, ideally merged with Filip Spanne's
-   `elanpress` fork for 04f3:0c6e that it derives from, with the raw-image
-   template trade-off stated up front; the `ppmm` fix in
-   `tools/0001-elan-0c3d-quirks.patch` stands on its own. [iafilatov/libfprint#53](https://github.com/iafilatov/libfprint/issues/53)
+5. **Upstream, in flight**:
+   - Omarchy: draft PR [omacom/omarchy#10689](https://github.com/omacom/omarchy/pull/10689)
+     with the enrolment overlay, root helper, polkit action, setup-script
+     replacement, migration, docs and tests. Review it, then mark it ready.
+   - libfprint: branch `elanpress-0c3d` in `build/libfprint/`, exported as
+     `tools/elanpress/upstream/0001-*.patch`; the merge-request text and the
+     umockdev recording recipe it still needs are in
+     `tools/elanpress/upstream/MERGE-REQUEST.md`. GitLab needs your login. [iafilatov/libfprint#53](https://github.com/iafilatov/libfprint/issues/53)
    reports this device with no data attached.
 
 ## Repo layout

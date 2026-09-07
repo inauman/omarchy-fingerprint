@@ -82,6 +82,5 @@ G_DECLARE_FINAL_TYPE (FpiDeviceElanPress, fpi_device_elanpress, FPI,
 
 static const FpIdEntry elanpress_id_table[] = {
   {.vid = ELANPRESS_VEND_ID, .pid = 0x0c3d, },
-  {.vid = ELANPRESS_VEND_ID, .pid = 0x0c6e, },
   {.vid = 0, .pid = 0, },
 };
