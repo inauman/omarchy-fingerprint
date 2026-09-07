@@ -595,7 +595,12 @@ capture_run_state (FpiSsm *ssm, FpDevice *dev)
       break;
 
     case CAPTURE_WAIT_ON_SEND:
-      fpi_device_report_finger_status (dev, FP_FINGER_STATUS_NEEDED);
+      /* NEEDED once per touch; PRESENT is added by the first frame and
+       * only removed when the touch ends, so clients don't see the flag
+       * flicker at frame rate */
+      if (self->num_frames == 0)
+        fpi_device_report_finger_status_changes (dev, FP_FINGER_STATUS_NEEDED,
+                                                 FP_FINGER_STATUS_PRESENT);
       elanpress_send_cmd (ssm, dev, cmd_pre_scan);
       break;
 
@@ -638,9 +643,8 @@ capture_run_state (FpiSsm *ssm, FpDevice *dev)
             }
           break;
         }
-      fpi_device_report_finger_status (dev,
-                                       FP_FINGER_STATUS_NEEDED |
-                                       FP_FINGER_STATUS_PRESENT);
+      fpi_device_report_finger_status_changes (dev, FP_FINGER_STATUS_PRESENT,
+                                               FP_FINGER_STATUS_NONE);
       elanpress_send_cmd (ssm, dev, cmd_get_image);
       break;
 

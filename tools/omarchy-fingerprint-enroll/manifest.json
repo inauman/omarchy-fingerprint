@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "inauman.fingerprint-enroll",
+  "name": "Fingerprint enrolment",
+  "version": "0.1.0",
+  "author": "inauman",
+  "description": "Phone-style fingerprint enrolment overlay: the print fills in stage by stage and tells you where to press next.",
+  "kinds": [
+    "overlay"
+  ],
+  "keepLoaded": false,
+  "entryPoints": {
+    "overlay": "Enroll.qml"
+  }
+}

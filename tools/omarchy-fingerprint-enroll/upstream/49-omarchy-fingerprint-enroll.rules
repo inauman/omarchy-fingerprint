@@ -1,0 +1,14 @@
+// Let anyone logged in at this machine enrol their own fingerprints without
+// typing a password, so the Fingerprints widget works like a phone's.
+//
+// fprintd's default (auth_self_keep) re-asks every few minutes; this grants
+// the same trust fprintd already gives verification (allow_active=yes).
+// A finger enrolled this way only ever unlocks that user's own session;
+// sudo rights still come from sudoers, not from fprintd. Managing *other*
+// users' prints (setusername) keeps requiring an admin password.
+polkit.addRule(function (action, subject) {
+  if (action.id == "net.reactivated.fprint.device.enroll" &&
+      subject.local && subject.active) {
+    return polkit.Result.YES;
+  }
+});

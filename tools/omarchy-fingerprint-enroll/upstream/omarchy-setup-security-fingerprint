@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# omarchy:summary=Set up fingerprint authentication for sudo, polkit, and lock screen
+# omarchy:requires-sudo=true
+
+set -e
+
+# Bail before installing anything if there's no reader to talk to.
+if ! omarchy-hw-fingerprint; then
+  echo -e "\e[31mNo fingerprint sensor detected.\e[0m"
+  exit 1
+fi
+
+# Inside a running shell the whole flow is the Fingerprint overlay: first run
+# installs packages and PAM through omarchy-fingerprint-setup-helper (one
+# polkit prompt), enrols the right index with on-screen guidance, confirms it
+# with a touch, and turns fingerprint login on; later runs open the finger
+# picker. No terminal involved.
+if omarchy-shell -q shell ping 2>/dev/null; then
+  exec omarchy-fingerprint-enroll
+fi
+
+# No shell (TTY, SSH): the same steps, in text.
+echo -e "\e[32mSetting up fingerprint scanner for authentication.\n\e[0m"
+sudo omarchy-fingerprint-setup-helper install
+
+echo -e "\e[32m\nLet's setup your right index finger as the first fingerprint.\e[0m"
+echo -e "Press, lift, shift the finger a little, press again, until it completes.\n"
+if fprintd-enroll -f right-index-finger; then
+  echo -e "\nNow touch the sensor once to verify.\n"
+  if fprintd-verify -f right-index-finger; then
+    sudo omarchy-fingerprint-setup-helper enable-pam
+    echo -e "\e[32m\nPerfect! Fingerprint authentication is now configured.\e[0m"
+  else
+    echo -e "\e[31m\nVerification failed. You may want to try enrolling again.\e[0m"
+  fi
+else
+  echo -e "\e[31m\nEnrollment failed. Please try again.\e[0m"
+  exit 1
+fi
