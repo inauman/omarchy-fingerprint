@@ -81,8 +81,9 @@ CONF
   busctl --system call net.reactivated.Fprint /net/reactivated/Fprint/Manager \
     net.reactivated.Fprint.Manager GetDevices || true
   echo
-  echo "Templates enrolled by the old swipe-mode driver are unreadable by this one;"
-  echo "delete them first:  sudo fprintd-delete ${SUDO_USER:-\$USER}"
+  echo "Enrolled fingers are kept. Only templates from the old swipe-mode elan"
+  echo "driver are unreadable; if verification says the print is unusable,"
+  echo "re-enrol through Setup > Security > Fingerprint."
 }
 
 case "${1:-build}" in
