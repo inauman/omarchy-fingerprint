@@ -651,9 +651,11 @@ elanpress_probe_match_canvas (const ElanpressProbe *pr, const guint8 *px,
     case 1:
       best.score = best.sidelobe > -2.0 ? best.peak - best.sidelobe : best.peak;
       break;
+
     case 2:
       best.score = best.sidelobe > 0.05 ? best.peak / best.sidelobe - 1.0 : best.peak;
       break;
+
     default:
       best.score = best.peak;
     }

@@ -1,4 +1,4 @@
-From 9110d8e62ce8112ffa644ce89c9e8249ce2eee80 Mon Sep 17 00:00:00 2001
+From 20cdc461787052eab7bb33aabd8d921c77074c5c Mon Sep 17 00:00:00 2001
 From: Mohammad Nauman <md.nauman@gmail.com>
 Date: Mon, 7 Sep 2026 12:23:53 -0700
 Subject: [PATCH] elanpress: Add driver for the Elan 04f3:0c3d press sensor
@@ -44,17 +44,19 @@ is not enabled here because it was not tested with these parameters.
 ---
  data/autosuspend.hwdb               |    6 +-
  libfprint/drivers/elan.h            |    1 -
- libfprint/drivers/elanpress-match.c |  945 +++++++++++++++++++++++
- libfprint/drivers/elanpress-match.h |  124 +++
- libfprint/drivers/elanpress.c       | 1097 +++++++++++++++++++++++++++
+ libfprint/drivers/elanpress-match.c |  947 +++++++++++++++++++++++
+ libfprint/drivers/elanpress-match.h |  158 ++++
+ libfprint/drivers/elanpress.c       | 1100 +++++++++++++++++++++++++++
  libfprint/drivers/elanpress.h       |   86 +++
  libfprint/meson.build               |    1 +
  meson.build                         |    1 +
- 8 files changed, 2259 insertions(+), 2 deletions(-)
+ tests/elanpress/custom.py           |   51 ++
+ 9 files changed, 2349 insertions(+), 2 deletions(-)
  create mode 100644 libfprint/drivers/elanpress-match.c
  create mode 100644 libfprint/drivers/elanpress-match.h
  create mode 100644 libfprint/drivers/elanpress.c
  create mode 100644 libfprint/drivers/elanpress.h
+ create mode 100755 tests/elanpress/custom.py
 
 diff --git a/data/autosuspend.hwdb b/data/autosuspend.hwdb
 index 104ce5e..5630112 100644
@@ -94,10 +96,10 @@ index 6bbaae0..f65ff68 100644
    {.vid = ELAN_VEND_ID,  .pid = 0x0c4d, .driver_data = ELAN_ALL_DEV},
 diff --git a/libfprint/drivers/elanpress-match.c b/libfprint/drivers/elanpress-match.c
 new file mode 100644
-index 0000000..f06115e
+index 0000000..7ee67fa
 --- /dev/null
 +++ b/libfprint/drivers/elanpress-match.c
-@@ -0,0 +1,945 @@
+@@ -0,0 +1,947 @@
 +/*
 + * Image processing and correlation matching for ELAN press-type sensors
 + *
@@ -751,9 +753,11 @@ index 0000000..f06115e
 +    case 1:
 +      best.score = best.sidelobe > -2.0 ? best.peak - best.sidelobe : best.peak;
 +      break;
++
 +    case 2:
 +      best.score = best.sidelobe > 0.05 ? best.peak / best.sidelobe - 1.0 : best.peak;
 +      break;
++
 +    default:
 +      best.score = best.peak;
 +    }
@@ -1045,10 +1049,10 @@ index 0000000..f06115e
 +}
 diff --git a/libfprint/drivers/elanpress-match.h b/libfprint/drivers/elanpress-match.h
 new file mode 100644
-index 0000000..18d5ba4
+index 0000000..be92f7a
 --- /dev/null
 +++ b/libfprint/drivers/elanpress-match.h
-@@ -0,0 +1,124 @@
+@@ -0,0 +1,158 @@
 +/*
 + * Image processing and correlation matching for ELAN press-type sensors
 + *
@@ -1114,34 +1118,50 @@ index 0000000..18d5ba4
 +void      elanpress_match_params_from_env (ElanpressMatchParams *p);
 +
 +/* wire format -> row-major 16-bit frame */
-+void      elanpress_rotate_frame (const guint8 *raw, guint16 *out, int w, int h);
++void      elanpress_rotate_frame (const guint8 *raw,
++                                  guint16      *out,
++                                  int           w,
++                                  int           h);
 +
 +/* background subtraction + local normalisation -> 8-bit image; never NULL */
-+guint8 *  elanpress_process_frame (const guint16 *frame, const guint16 *bg,
-+                                   int w, int h, int norm_win,
++guint8 *  elanpress_process_frame (const guint16    *frame,
++                                   const guint16    *bg,
++                                   int               w,
++                                   int               h,
++                                   int               norm_win,
 +                                   ElanpressQuality *q);
 +
 +/* raw frame statistics (no background), used to sanity-check a background */
-+void      elanpress_frame_stats (const guint16 *frame, int w, int h,
-+                                 double *mean, double *stddev);
++void      elanpress_frame_stats (const guint16 *frame,
++                                 int            w,
++                                 int            h,
++                                 double        *mean,
++                                 double        *stddev);
 +
 +/* zero-shift normalised cross-correlation of two processed images, -1..1 */
-+double    elanpress_similarity (const guint8 *a, const guint8 *b, int w, int h);
++double    elanpress_similarity (const guint8 *a,
++                                const guint8 *b,
++                                int           w,
++                                int           h);
 +
-+ElanpressProbe *elanpress_probe_new (const guint8 *img, int w, int h,
++ElanpressProbe *elanpress_probe_new (const guint8               *img,
++                                     int                         w,
++                                     int                         h,
 +                                     const ElanpressMatchParams *p);
 +void      elanpress_probe_free (ElanpressProbe *probe);
 +
 +/* best correlation of the probe against one template image */
 +double    elanpress_probe_match (const ElanpressProbe *probe,
-+                                 const guint8 *tmpl,
++                                 const guint8         *tmpl,
 +                                 ElanpressMatchResult *res);
 +
 +/* best correlation of the probe against a canvas of any size; mask (may be
 + * NULL) marks the canvas pixels that hold image data */
 +double    elanpress_probe_match_canvas (const ElanpressProbe *probe,
-+                                        const guint8 *px, const guint8 *mask,
-+                                        int tw, int th,
++                                        const guint8         *px,
++                                        const guint8         *mask,
++                                        int                   tw,
++                                        int                   th,
 +                                        ElanpressMatchResult *res);
 +
 +/* A mosaic fragment: enrolled images registered onto one canvas. */
@@ -1153,32 +1173,50 @@ index 0000000..18d5ba4
 +  int     n_images;
 +} ElanpressCanvas;
 +
-+ElanpressCanvas *elanpress_canvas_new_from_image (const guint8 *img, int w, int h);
++ElanpressCanvas *elanpress_canvas_new_from_image (const guint8 *img,
++                                                  int           w,
++                                                  int           h);
 +void            elanpress_canvas_free (ElanpressCanvas *c);
 +
 +/* register every image against the growing fragments; an image whose best
 + * registration scores below reg_thresh starts a new fragment. Returns an
 + * array of ElanpressCanvas, cropped to their content. */
-+GPtrArray *     elanpress_mosaic_build (GPtrArray *images, int w, int h,
++GPtrArray *     elanpress_mosaic_build (GPtrArray                  *images,
++                                        int                         w,
++                                        int                         h,
 +                                        const ElanpressMatchParams *p,
-+                                        double reg_thresh, int max_side);
++                                        double                      reg_thresh,
++                                        int                         max_side);
 +
 +/* convenience: prepare, match, free */
-+double    elanpress_match (const guint8 *probe, const guint8 *tmpl,
-+                           int w, int h, const ElanpressMatchParams *p,
-+                           ElanpressMatchResult *res);
++double    elanpress_match (const guint8               *probe,
++                           const guint8               *tmpl,
++                           int                         w,
++                           int                         h,
++                           const ElanpressMatchParams *p,
++                           ElanpressMatchResult       *res);
 +
 +/* PGM helpers (8-bit and 16-bit big-endian) */
-+gboolean  elanpress_pgm_write8 (const char *path, const guint8 *px, int w, int h);
-+gboolean  elanpress_pgm_write16 (const char *path, const guint16 *px, int w, int h);
-+guint8 *  elanpress_pgm_read8 (const char *path, int *w, int *h);
-+guint16 * elanpress_pgm_read16 (const char *path, int *w, int *h);
++gboolean  elanpress_pgm_write8 (const char   *path,
++                                const guint8 *px,
++                                int           w,
++                                int           h);
++gboolean  elanpress_pgm_write16 (const char    *path,
++                                 const guint16 *px,
++                                 int            w,
++                                 int            h);
++guint8 *  elanpress_pgm_read8 (const char *path,
++                               int        *w,
++                               int        *h);
++guint16 * elanpress_pgm_read16 (const char *path,
++                                int        *w,
++                                int        *h);
 diff --git a/libfprint/drivers/elanpress.c b/libfprint/drivers/elanpress.c
 new file mode 100644
-index 0000000..458e143
+index 0000000..f383a95
 --- /dev/null
 +++ b/libfprint/drivers/elanpress.c
-@@ -0,0 +1,1097 @@
+@@ -0,0 +1,1100 @@
 +/*
 + * Driver for ELAN press-type (touch) fingerprint sensors
 + *
@@ -1231,20 +1269,20 @@ index 0000000..458e143
 +  int                  dump_touch;
 +
 +  /* raw background frame (no finger), row-major */
-+  guint16             *background;
-+  guint16              calib_mean;
-+  int                  bg_attempts;
++  guint16 *background;
++  guint16  calib_mean;
++  int      bg_attempts;
 +
 +  /* raw frames of the touch being captured, newest first */
-+  GSList              *frames;
-+  int                  num_frames;
-+  guint8               finger_byte;
-+  gboolean             wait_timed_out;
++  GSList  *frames;
++  int      num_frames;
++  guint8   finger_byte;
++  gboolean wait_timed_out;
 +
 +  /* processed images collected during enrollment */
-+  GPtrArray           *enroll_images;
-+  int                  enroll_stage;
-+  int                  enroll_stages;
++  GPtrArray *enroll_images;
++  int        enroll_stage;
++  int        enroll_stages;
 +};
 +
 +G_DEFINE_TYPE (FpiDeviceElanPress, fpi_device_elanpress, FP_TYPE_DEVICE);
@@ -1322,6 +1360,7 @@ index 0000000..458e143
 +elanpress_process_touch (FpiDeviceElanPress *self, int max_keep)
 +{
 +  int w = self->frame_width, h = self->frame_height;
++
 +  g_autoptr(GPtrArray) all = g_ptr_array_new_with_free_func (processed_free);
 +  GPtrArray *keep = g_ptr_array_new_with_free_func (g_free);
 +  int idx = self->num_frames;
@@ -1787,8 +1826,8 @@ index 0000000..458e143
 +
 +    case CAPTURE_WAIT_ON_READ:
 +      elanpress_read (ssm, dev, ELANPRESS_EP_CMD_IN, 1,
-+                      self->num_frames > 0 ? ELANPRESS_FINGER_GONE_TIMEOUT
-+                                           : ELANPRESS_WAIT_FINGER_TIMEOUT,
++                      self->num_frames > 0 ? ELANPRESS_FINGER_GONE_TIMEOUT :
++                      ELANPRESS_WAIT_FINGER_TIMEOUT,
 +                      elanpress_status_cb);
 +      break;
 +
@@ -1876,6 +1915,7 @@ index 0000000..458e143
 +{
 +  FpiDeviceElanPress *self = FPI_DEVICE_ELANPRESS (dev);
 +  FpPrint *print = NULL;
++
 +  g_autoptr(GPtrArray) images = NULL;
 +
 +  fpi_device_report_finger_status (dev, FP_FINGER_STATUS_NONE);
@@ -1969,6 +2009,7 @@ index 0000000..458e143
 +{
 +  FpiDeviceElanPress *self = FPI_DEVICE_ELANPRESS (dev);
 +  FpiDeviceAction action = fpi_device_get_current_action (dev);
++
 +  g_autoptr(GPtrArray) probes = NULL;
 +  ElanpressMatchResult res = { 0 };
 +
@@ -2392,6 +2433,63 @@ index ab09dc1..c193b24 100644
      'elanmoc': {},
      'uru4000': { 'helper': ['openssl'] },
      'upektc': {},
+diff --git a/tests/elanpress/custom.py b/tests/elanpress/custom.py
+new file mode 100755
+index 0000000..3b22aaa
+--- /dev/null
++++ b/tests/elanpress/custom.py
+@@ -0,0 +1,51 @@
++#!/usr/bin/env python3
++# Starting point for tests/elanpress/custom.py in libfprint, to run against
++# the umockdev recording produced by tests/create-driver-test.py elanpress.
++
++import traceback
++import sys
++import gi
++
++gi.require_version('FPrint', '2.0')
++from gi.repository import FPrint, GLib
++
++sys.excepthook = lambda *args: (traceback.print_exception(*args), sys.exit(1))
++
++c = FPrint.Context()
++c.enumerate()
++devices = c.get_devices()
++d = devices[0]
++del devices
++
++assert d.get_driver() == "elanpress"
++assert d.get_scan_type() == FPrint.ScanType.PRESS
++assert not d.has_feature(FPrint.DeviceFeature.CAPTURE)
++assert d.has_feature(FPrint.DeviceFeature.IDENTIFY)
++assert d.has_feature(FPrint.DeviceFeature.VERIFY)
++assert not d.has_feature(FPrint.DeviceFeature.STORAGE)
++
++d.open_sync()
++assert d.get_nr_enroll_stages() == 20
++
++template = FPrint.Print.new(d)
++
++def enroll_progress(*args):
++    print('enroll progress: ' + str(args))
++
++print("enrolling")
++p = d.enroll_sync(template, None, enroll_progress, None)
++print("enroll done")
++
++print("verifying")
++verify_res, verify_print = d.verify_sync(p)
++assert verify_res == True
++print("verify done")
++
++print("identifying")
++match, print_ = d.identify_sync([FPrint.Print.deserialize(p.serialize())])
++assert match is not None
++print("identify done")
++
++d.close_sync()
++del d
++del c
 -- 
 2.55.0
 

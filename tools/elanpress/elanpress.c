@@ -50,20 +50,20 @@ struct _FpiDeviceElanPress
   int                  dump_touch;
 
   /* raw background frame (no finger), row-major */
-  guint16             *background;
-  guint16              calib_mean;
-  int                  bg_attempts;
+  guint16 *background;
+  guint16  calib_mean;
+  int      bg_attempts;
 
   /* raw frames of the touch being captured, newest first */
-  GSList              *frames;
-  int                  num_frames;
-  guint8               finger_byte;
-  gboolean             wait_timed_out;
+  GSList  *frames;
+  int      num_frames;
+  guint8   finger_byte;
+  gboolean wait_timed_out;
 
   /* processed images collected during enrollment */
-  GPtrArray           *enroll_images;
-  int                  enroll_stage;
-  int                  enroll_stages;
+  GPtrArray *enroll_images;
+  int        enroll_stage;
+  int        enroll_stages;
 };
 
 G_DEFINE_TYPE (FpiDeviceElanPress, fpi_device_elanpress, FP_TYPE_DEVICE);
@@ -141,6 +141,7 @@ static GPtrArray *
 elanpress_process_touch (FpiDeviceElanPress *self, int max_keep)
 {
   int w = self->frame_width, h = self->frame_height;
+
   g_autoptr(GPtrArray) all = g_ptr_array_new_with_free_func (processed_free);
   GPtrArray *keep = g_ptr_array_new_with_free_func (g_free);
   int idx = self->num_frames;
@@ -606,8 +607,8 @@ capture_run_state (FpiSsm *ssm, FpDevice *dev)
 
     case CAPTURE_WAIT_ON_READ:
       elanpress_read (ssm, dev, ELANPRESS_EP_CMD_IN, 1,
-                      self->num_frames > 0 ? ELANPRESS_FINGER_GONE_TIMEOUT
-                                           : ELANPRESS_WAIT_FINGER_TIMEOUT,
+                      self->num_frames > 0 ? ELANPRESS_FINGER_GONE_TIMEOUT :
+                      ELANPRESS_WAIT_FINGER_TIMEOUT,
                       elanpress_status_cb);
       break;
 
@@ -695,6 +696,7 @@ elanpress_enroll_touch_done (FpiSsm *ssm, FpDevice *dev, GError *error)
 {
   FpiDeviceElanPress *self = FPI_DEVICE_ELANPRESS (dev);
   FpPrint *print = NULL;
+
   g_autoptr(GPtrArray) images = NULL;
 
   fpi_device_report_finger_status (dev, FP_FINGER_STATUS_NONE);
@@ -788,6 +790,7 @@ elanpress_match_touch_done (FpiSsm *ssm, FpDevice *dev, GError *error)
 {
   FpiDeviceElanPress *self = FPI_DEVICE_ELANPRESS (dev);
   FpiDeviceAction action = fpi_device_get_current_action (dev);
+
   g_autoptr(GPtrArray) probes = NULL;
   ElanpressMatchResult res = { 0 };
 
