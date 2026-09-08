@@ -1,161 +1,109 @@
-# omarchy-fingerprint
+# Fingerprint login for Omarchy on a $20 USB reader
 
-Getting fingerprint authentication working on an Omarchy (Arch) laptop, so
-`sudo` and the lock screen accept a fingerprint instead of a typed password.
+A libfprint driver for the Elan `04f3:0c3d` press sensor (sold as "TEC" and
+other Windows Hello USB dongles), and a phone-style fingerprint enrolment
+widget for the [Omarchy](https://omarchy.org) desktop. Together they turn a
+2018 ASUS VivoBook E406MA (Pentium Silver N5000, 4 GB RAM) into a laptop
+that unlocks, runs `sudo` and answers admin prompts with a touch.
 
-Two sensors were investigated. **The external one now works end to end**
-with a press-mode driver written for it (`tools/elanpress/`); the built-in
-one is still unusable. The technical trail is in [FINDINGS.md](FINDINGS.md);
-this file covers the goal, the hardware, and where things stand.
+<p align="center">
+  <img src="docs/fingerprint-enrol.png" width="46%" alt="Enrolment: a fingerprint filling in press by press, with a hint for where to press next">
+  &nbsp;
+  <img src="docs/fingerprint-picker.png" width="46%" alt="Finger picker: both hands, enrolled fingers marked">
+</p>
 
-## Goal
+## What's here
 
-Replace password entry for `sudo`, polkit and the lock screen with a
-fingerprint, using Omarchy's built-in support:
+| | Where | Status |
+|---|---|---|
+| **`elanpress` libfprint driver** for `04f3:0c3d` | [`tools/elanpress/`](tools/elanpress/README.md) | Working; installed here for sudo, polkit and the lock screen. Merge request to libfprint being prepared ([`upstream/`](tools/elanpress/upstream/MERGE-REQUEST.md)). |
+| **Fingerprint enrolment overlay** for Omarchy | [`tools/omarchy-fingerprint-enroll/`](tools/omarchy-fingerprint-enroll/README.md) | Working; PR open: [omacom/omarchy#10689](https://github.com/omacom/omarchy/pull/10689). |
+| **Investigation notes** | [`FINDINGS.md`](FINDINGS.md) | Why the stock driver could never work, and what was measured. |
 
+## The problem
+
+The dongle shows up in Linux, `fprintd` enrols it, and it never matches a
+single print. libfprint's `elan` driver treats every device in its table as
+a *swipe* sensor: it crops each frame to 50 rows, films ~30 frames of a
+resting finger, stitches them into a strip that differs on every press, and
+hands the result to NBIS, whose matcher returns a constant zero for any print
+with fewer than 10 minutiae. A 3 × 4 mm patch has 1 to 5. No threshold or
+fix inside that design can work; see [FINDINGS.md](FINDINGS.md).
+
+## The driver
+
+`elanpress` speaks the same USB protocol but treats the pad as what it is:
+full 64 × 88 frames, press mode, no device-side calibration loop, up to three
+distinct frames per touch, and match-on-host by normalised cross-correlation
+of ridge images over translation and ±20° of rotation, spread across the
+CPUs. Templates are the enrolled images.
+
+Measured on a 140-image pool from this pad (index 20 touches; middle, ring
+and thumb 12 each): the threshold sits above every impostor score (0 of 91
+accepted) and passes about 60 % of genuine touches with a 20-touch
+enrolment. A match returns in ~0.2 s. Coverage, not the matcher, is the
+limit on a sensor this small, which is why the enrolment UI matters.
+
+```sh
+tools/elanpress/build.sh                 # libfprint master + driver, into build/
+sudo tools/elanpress/hw-test.sh          # enrol + verify against the device
+sudo tools/elanpress/build.sh install    # /opt/libfprint-0c3d + fprintd drop-in
+omarchy setup security fingerprint       # then use it
 ```
-omarchy setup security fingerprint    # configures PAM for sudo, polkit, lock screen
-omarchy remove security fingerprint   # clean undo
+
+Nothing on the system is replaced: the packaged libfprint stays, and only
+fprintd is pointed at the new library through a systemd drop-in.
+
+## The enrolment widget
+
+Omarchy's fingerprint setup used to be a terminal printing "place your
+finger" twenty times. On a small sensor a print only verifies when a press
+overlaps something enrolled, so enrolment has to walk the finger around, and
+nothing told the user that. The overlay does:
+
+- a finger picker for both hands, enrolled fingers marked;
+- a print that fills in with every accepted press and a hint for where to
+  press next;
+- instant "hold still" feedback the moment the sensor sees skin;
+- first run: one password, then packages, enrolment, a confirm touch, and
+  PAM turned on; later runs never ask for anything.
+
+It works with any fprintd reader, not just this one.
+
+```sh
+tools/omarchy-fingerprint-enroll/install.sh     # into ~/.config/omarchy/plugins, enabled
+omarchy-shell shell summon inauman.fingerprint-enroll '{}'
 ```
 
-That command is not the problem — it does the right thing. The problem was
-that neither sensor produced a fingerprint template that verifies; the
-external one does now.
-
-## Hardware
-
-### 1. Built-in — ASUS laptop, square pad in the touchpad corner
+## Hardware notes
 
 | | |
 |---|---|
-| Chip | ELAN7001, SPI (not USB) |
-| sysfs | `spi-ELAN7001:00`, bound to `spidev`, `/dev/spidev2.0` |
-| libfprint driver | `elanspi` |
-| fprintd name | ElanTech Embedded Fingerprint Sensor |
-| Scan type | swipe, 8 enroll stages |
-
-Present from the start but invisible to `omarchy hw fingerprint`, which only
-scans USB sysfs. libfprint's own udev rule binds it correctly, so the plumbing
-is fine — the sensor itself never initialises reliably.
-
-**Status: unusable.** Enrolls all 8 stages once, then `verify-no-match`. The
-journal shows repeated `<init/otp> timed out waiting for vcom detection`,
-`Device disabled to prevent overheating` (libfprint's thermal model tripping
-because the driver burns seconds retrying), and assertion failures inside
-libfprint. Excluded from fprintd via `FP_DRIVERS_ALLOWLIST=elan`.
-
-### 2. External — TEC USB fingerprint reader
-
-[amazon.com/dp/B08DCFMSLG](https://www.amazon.com/TEC-Fingerprint-Bio-Metric-Password-Free-Encryption/dp/B08DCFMSLG)
-— sold for Windows Hello; the listing says to *touch the sensor for 1–2 seconds*.
-
-| | |
-|---|---|
-| USB ID | `04f3:0c3d` Elan Microelectronics, `ELAN:Fingerprint` |
-| Firmware | `0x0165` (`bcdDevice 1.65`) |
-| libfprint driver | `elan` |
-| fprintd name | ElanTech Fingerprint Sensor |
-| Scan type | swipe (hardcoded), 5–6 enroll stages, 64 × 50 frames |
-
-**Status: works with the new press-mode driver; ~60 % of touches accepted, zero false accepts measured.**
-With the stock `elan` driver it originally could not enroll at all, and after
-four quirk fixes it enrolled but never verified: the driver treats this press
-sensor as a swipe sensor, throws away 43 % of every frame, and hands a 3 × 4 mm
-patch to a minutiae matcher that refuses to score it. The replacement is
-[`tools/elanpress/`](tools/elanpress/README.md): a press-mode driver with a
-correlation matcher, the approach the Windows driver and two independent
-Linux projects for sibling Elan pads use. See FINDINGS.md for the trail.
-
-## System
-
-Omarchy / Arch, kernel 7.1.9-arch1, fprintd 1.94.5, libfprint master (1.94.100)
-built from source with the patch in `tools/`.
-
-## Where it stands
-
-| | Enrolls | Verifies | Blocker |
-|---|---|---|---|
-| Built-in ELAN7001 | once, unreliably | no | Sensor never initialises; `elanspi` unusable on this machine. A [SIGFM press-mode patch](https://github.com/Ajaneeshwar/x571gt-fingerprint) exists for the same die in another ASUS model and is the thing to try next |
-| TEC 04f3:0c3d, stock `elan` driver | yes, reliably | no | Press sensor driven as a swipe sensor; NBIS can't match the assembled collage |
-| TEC 04f3:0c3d, `elanpress` driver | yes, 20 touches | **yes**, ~60 % of touches at threshold 0.76, 0/91 impostor images accepted | Coverage: a 3 × 4 mm patch must overlap an enrolled one; expect an occasional second press |
-
-PAM was never modified — login is untouched and there is nothing to undo on that
-front. `tools/setup-pam-fingerprint.sh` is written and ready but deliberately
-unrun, since wiring fingerprint into `sudo` against a template that never
-matches would only add a delay before the password prompt.
-
-## What was tried
-
-Roughly in order:
-
-1. **`omarchy setup security fingerprint`** — enrolled against the *built-in*
-   sensor without saying so, and silently did nothing. fprintd picks a default
-   device, and the built-in one sorted first.
-2. **Isolating each sensor** with `FP_DRIVERS_ALLOWLIST` (`elanspi` vs `elan`)
-   in a fprintd systemd drop-in. This is what made the two devices separable and
-   is still in place.
-3. **Built-in sensor** — enrolled 8 stages after several attempts; verify failed.
-   Repeated init timeouts and thermal shutdowns. Abandoned.
-4. **Newer libfprint** — `omarchy/libfprint-git` (master snapshot). No change;
-   identical `Calibration failed!`.
-5. **Reading the driver source** rather than guessing — `elan.c` / `elan.h` from
-   libfprint master, with debug builds and full driver logging.
-6. **Four patch iterations** on the dongle, two of which were wrong and were
-   killed by measurement rather than argument. Details in FINDINGS.md.
-7. **Dumping the actual image** with libfprint's `img-capture` example — the
-   step that turned inference into evidence and identified the press/swipe
-   mismatch.
-
-## Currently installed on this machine (2026-09-06)
-
-- libfprint master + `elanpress` at `/opt/libfprint-0c3d`, with
-  `/etc/systemd/system/fprintd.service.d/allowlist.conf` pointing fprintd at
-  it and restricting drivers to `elanpress`.
-- Right index enrolled with 20 touches; `omarchy setup security fingerprint`
-  has configured PAM for sudo, polkit and the lock screen.
-- Source and build in `build/libfprint/` (gitignored, survives reboots);
-  `tools/elanpress/build.sh` rebuilds, `sudo tools/elanpress/build.sh install`
-  reinstalls.
-
-The packaged libfprint is untouched; only fprintd's environment differs. To
-remove: `omarchy remove security fingerprint`, delete `/opt/libfprint-0c3d`
-and the drop-in, then `systemctl daemon-reload`.
-
-## Next steps
-
-1. **Live with it for a few days.** Scores for every attempt are in
-   `journalctl -u fprintd`. If misses are too frequent, raise coverage:
-   `Environment=FP_ELANPRESS_ENROLL_STAGES=30` in the drop-in and re-enrol
-   (a miss then takes longer to reject; speeding up the matcher is the
-   companion change).
-2. **Enrolment UI for Omarchy**: a shell plugin that fills a fingerprint
-   glyph stage by stage and tells the user to shift the finger between
-   presses. Omarchy has no enrolment UI today, only the terminal script.
-3. **More impostor data** would make the threshold trustworthy: another
-   person's fingers through `capture-pool.sh`, then
-   `EVAL_LOO=1 elanpress-eval pool pool 0`.
-4. **Built-in ELAN7001**: try the SIGFM press-mode patch linked above; it is
-   the same die (`eFSA80SC`) in another ASUS model, and the same
-   swipe-versus-press diagnosis.
-5. **Upstream, in flight**:
-   - Omarchy: draft PR [omacom/omarchy#10689](https://github.com/omacom/omarchy/pull/10689)
-     with the enrolment overlay, root helper, polkit action, setup-script
-     replacement, migration, docs and tests. Review it, then mark it ready.
-   - libfprint: branch `elanpress-0c3d` in `build/libfprint/`, exported as
-     `tools/elanpress/upstream/0001-*.patch`; the merge-request text and the
-     umockdev recording recipe it still needs are in
-     `tools/elanpress/upstream/MERGE-REQUEST.md`. GitLab needs your login. [iafilatov/libfprint#53](https://github.com/iafilatov/libfprint/issues/53)
-   reports this device with no data attached.
+| Reader | TEC TE-FPA2 style dongle, USB `04f3:0c3d` Elan, firmware 0x0165, 64 × 88 px ≈ 3.2 × 4.4 mm at ~500 dpi |
+| Laptop | ASUS VivoBook E406MA, Pentium Silver N5000, 4 GB, Omarchy on Arch, kernel 7.1 |
+| Built-in sensor | ELAN7001 on SPI, unusable with `elanspi` on this machine; a [SIGFM press-mode patch](https://github.com/Ajaneeshwar/x571gt-fingerprint) for the same die elsewhere is the next thing to try |
 
 ## Repo layout
 
 ```
-FINDINGS.md        technical write-up of the 04f3:0c3d investigation
-tools/elanpress/   the press-mode driver, matcher, eval tool, build/test scripts
-tools/             the earlier swipe-driver patch, debug scripts, and logs
-build/             libfprint source + build (gitignored)
-pool/, hw-test/    captures and logs from hardware runs (gitignored, biometric)
+FINDINGS.md                      technical write-up, including what was rejected
+docs/                            screenshots
+tools/elanpress/                 driver, matcher, eval tool, build/test scripts, upstream patch
+tools/omarchy-fingerprint-enroll/ overlay plugin, commands, polkit files, upstream material
+tools/*.sh, tools/*.log, tools/*.patch
+                                 the earlier swipe-driver investigation
 ```
 
-Captured fingerprint images are gitignored. They are real biometric data, and
-FINDINGS.md describes what they showed.
+Captured fingerprint images are gitignored; the repository contains none.
+
+## Credits
+
+Filip Spanne's [`elanpress` driver for 04f3:0c6e](https://github.com/filip-rs/libfprint),
+which this driver derives from; [dragosol/fpmatch](https://github.com/dragosol/fpmatch)
+for the measurements that shaped the matcher; the libfprint and Omarchy
+projects.
+
+## Licence
+
+Driver: LGPL-2.1-or-later (libfprint's). Omarchy plugin and the rest: MIT.
+See [LICENSE.md](LICENSE.md).

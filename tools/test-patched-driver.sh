@@ -5,7 +5,7 @@
 #
 # Run as root:  sudo bash tools/test-patched-driver.sh
 BUILD=/tmp/lfp/build/libfprint
-LOG=/home/nauman/Projects/omarchy-fingerprint/tools/elan-0c3d-patched.log
+LOG=$(cd "$(dirname "$0")" && pwd)/elan-0c3d-patched.log
 
 if [[ ! -f $BUILD/libfprint-2.so.2.0.0 ]]; then
   echo "Patched build not found at $BUILD -- rebuild with: ninja -C /tmp/lfp/build"
@@ -27,7 +27,7 @@ echo
   echo "### $(git -C /tmp/lfp log --oneline -1)"
   LD_LIBRARY_PATH="$BUILD" \
   GI_TYPELIB_PATH="$BUILD" \
-  timeout 180 python3 /home/nauman/Projects/omarchy-fingerprint/tools/elan-debug-probe.py 2>&1
+  timeout 180 python3 "$(dirname "$0")/elan-debug-probe.py" 2>&1
   echo "### exit: $?"
 } | tee "$LOG"
 

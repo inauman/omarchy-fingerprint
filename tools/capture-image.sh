@@ -4,7 +4,7 @@
 # or a smeared strip, the problem is assembly, not the template.
 #
 # Run as root:  sudo bash tools/capture-image.sh
-OUT=/home/nauman/Projects/omarchy-fingerprint/tools/finger.pgm
+OUT=$(cd "$(dirname "$0")" && pwd)/finger.pgm
 
 systemctl stop fprintd
 sleep 1
