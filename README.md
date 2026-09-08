@@ -83,18 +83,12 @@ omarchy-shell shell summon inauman.fingerprint-enroll '{}'
 | Laptop | ASUS VivoBook E406MA, Pentium Silver N5000, 4 GB, Omarchy on Arch, kernel 7.1 |
 | Built-in sensor | ELAN7001 on SPI, unusable with `elanspi` on this machine; a [SIGFM press-mode patch](https://github.com/Ajaneeshwar/x571gt-fingerprint) for the same die elsewhere is the next thing to try |
 
-## Repo layout
+## A note on biometric data
 
-```
-FINDINGS.md                      technical write-up, including what was rejected
-docs/                            screenshots
-tools/elanpress/                 driver, matcher, eval tool, build/test scripts, upstream patch
-tools/omarchy-fingerprint-enroll/ overlay plugin, commands, polkit files, upstream material
-tools/*.sh, tools/*.log, tools/*.patch
-                                 the earlier swipe-driver investigation
-```
-
-Captured fingerprint images are gitignored; the repository contains none.
+Real fingerprint captures from this work are gitignored and not in the
+repository. The one exception is deliberate: the libfprint test recording
+inside `tools/elanpress/upstream/` contains sensor frames, made with the side
+of a little finger for that purpose, as libfprint's own test guide suggests.
 
 ## Credits
 
