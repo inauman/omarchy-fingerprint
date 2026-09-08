@@ -85,10 +85,9 @@ omarchy-shell shell summon inauman.fingerprint-enroll '{}'
 
 ## A note on biometric data
 
-Real fingerprint captures from this work are gitignored and not in the
-repository. The one exception is deliberate: the libfprint test recording
-inside `tools/elanpress/upstream/` contains sensor frames, made with the side
-of a little finger for that purpose, as libfprint's own test guide suggests.
+No real fingerprint captures are in this repository; they are gitignored.
+The libfprint test recording under `tools/elanpress/upstream/` contains
+sensor frames, but not of a fingerprint.
 
 ## Credits
 
