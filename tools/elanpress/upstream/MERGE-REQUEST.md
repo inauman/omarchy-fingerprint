@@ -15,7 +15,7 @@ git push -u fork elanpress-0c3d
 # then "Create merge request" from the link GitLab prints
 ```
 
-## Before it can merge: a umockdev recording
+## The umockdev recording (done: tests/elanpress in the branch, replays in 1.9 s)
 
 libfprint's CI runs every USB driver against a recorded session
 (`tests/<driver>/`). The recording needs the device and root:

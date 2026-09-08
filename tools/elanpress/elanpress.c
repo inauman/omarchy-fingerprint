@@ -720,33 +720,6 @@ elanpress_enroll_touch_done (FpiSsm *ssm, FpDevice *dev, GError *error)
       return;
     }
 
-  /* informational: how much does this touch overlap what we already have?
-   * A high score at (near) zero offset means the user pressed the same
-   * spot again, which adds nothing. Logged so enrolment can be tuned. */
-  if (self->enroll_images->len > 0)
-    {
-      g_autoptr(GPtrArray) probes = g_ptr_array_new ();
-      ElanpressMatchResult res = { 0 };
-      double best = -1;
-
-      g_ptr_array_add (probes, g_ptr_array_index (images, 0));
-      for (guint i = 0; i < self->enroll_images->len; i++)
-        {
-          ElanpressMatchResult r;
-          double s = elanpress_match (g_ptr_array_index (probes, 0),
-                                      g_ptr_array_index (self->enroll_images, i),
-                                      self->frame_width, self->frame_height,
-                                      &self->params, &r);
-          if (s > best)
-            {
-              best = s;
-              res = r;
-            }
-        }
-      fp_dbg ("stage %d: best overlap with enrolled images %.3f at dx %d dy %d rot %.0f",
-              self->enroll_stage, best, res.dx, res.dy, res.rot);
-    }
-
   for (guint i = 0; i < images->len; i++)
     g_ptr_array_add (self->enroll_images, g_steal_pointer (&images->pdata[i]));
   g_ptr_array_set_free_func (images, NULL);
