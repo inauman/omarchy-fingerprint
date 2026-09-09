@@ -1,5 +1,9 @@
 # libfprint merge request — elanpress: Add driver for the Elan 04f3:0c3d press sensor
 
+**Opened 2026-09-09:** https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/654
+(fork `inauman/libfprint`, branch `elanpress-0c3d`). The notes below record how
+it was prepared.
+
 Branch: `elanpress-0c3d` in `build/libfprint/` (one commit, also exported as
 `0001-elanpress-Add-driver-for-the-Elan-04f3-0c3d-press-se.patch` here).
 
@@ -72,6 +76,9 @@ not. That is what the vendor's Windows driver stores too, and it is the
 only kind of template a 3×4 mm patch supports. If that is unacceptable
 upstream, say so and this stays out of tree.
 
-**Not included.** `0c6e` (needs testing with these parameters; Filip's
-fork has its own tuning); the umockdev test (recording in progress);
-`uncrustify` was not available on the build host — happy to reformat.
+**Test.** `tests/elanpress/` carries a umockdev recording of an enrol,
+verify and identify session (made with the side of a finger, per the test
+guide); it replays in under two seconds.
+
+**Not included.** `0c6e`: it needs testing with these parameters, and
+Filip's fork has its own tuning.

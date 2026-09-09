@@ -16,7 +16,7 @@ that unlocks, runs `sudo` and answers admin prompts with a touch.
 
 | | Where | Status |
 |---|---|---|
-| **`elanpress` libfprint driver** for `04f3:0c3d` | [`tools/elanpress/`](tools/elanpress/README.md) | Working; installed here for sudo, polkit and the lock screen. Merge request to libfprint being prepared ([`upstream/`](tools/elanpress/upstream/MERGE-REQUEST.md)). |
+| **`elanpress` libfprint driver** for `04f3:0c3d` | [`tools/elanpress/`](tools/elanpress/README.md) | Working; installed here for sudo, polkit and the lock screen. Merge request open: [libfprint!654](https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/654). |
 | **Fingerprint enrolment overlay** for Omarchy | [`tools/omarchy-fingerprint-enroll/`](tools/omarchy-fingerprint-enroll/README.md) | Working; PR open: [omacom/omarchy#10689](https://github.com/omacom/omarchy/pull/10689). |
 | **Investigation notes** | [`FINDINGS.md`](FINDINGS.md) | Why the stock driver could never work, and what was measured. |
 
