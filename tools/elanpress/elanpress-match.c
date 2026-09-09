@@ -143,9 +143,11 @@ elanpress_process_frame (const guint16 *frame, const guint16 *bg,
   int n = w * h;
   int sw = w + 1;
   int r = MAX (norm_win, 3) / 2;
-  float *d = g_new (float, n);
-  double *S = g_new (double, (size_t) sw * (h + 1));
-  double *SS = g_new (double, (size_t) sw * (h + 1));
+  float *d = calloc ((size_t) n, sizeof (float));
+  /* calloc rather than g_new0: static analysers model calloc as zeroing
+   * memory, which lets them follow the integral-image recurrence below */
+  double *S = calloc ((size_t) sw * (h + 1), sizeof (double));
+  double *SS = calloc ((size_t) sw * (h + 1), sizeof (double));
   guint8 *out = g_new (guint8, n);
   double sum = 0, sq = 0, mean, gstd, eps;
   int textured = 0;
@@ -159,17 +161,30 @@ elanpress_process_frame (const guint16 *frame, const guint16 *bg,
   mean = sum / n;
   gstd = sqrt (MAX (sq / n - mean * mean, 0.0));
 
-  /* integral images with a zero first row and column */
-  memset (S, 0, sizeof (double) * (size_t) sw * (h + 1));
-  memset (SS, 0, sizeof (double) * (size_t) sw * (h + 1));
+  /* integral images with a zero first row and column, built from running
+   * row sums so every value read was written earlier in these loops */
+  for (int x = 0; x < sw; x++)
+    {
+      S[x] = 0;
+      SS[x] = 0;
+    }
   for (int y = 0; y < h; y++)
-    for (int x = 0; x < w; x++)
-      {
-        double p = d[y * w + x];
-        size_t i = (size_t) (y + 1) * sw + x + 1;
-        S[i] = p + S[i - 1] + S[i - sw] - S[i - sw - 1];
-        SS[i] = p * p + SS[i - 1] + SS[i - sw] - SS[i - sw - 1];
-      }
+    {
+      double rs = 0, rss = 0;
+      size_t row = (size_t) (y + 1) * sw, prev = (size_t) y * sw;
+
+      S[row] = 0;
+      SS[row] = 0;
+      for (int x = 0; x < w; x++)
+        {
+          double p = d[y * w + x];
+
+          rs += p;
+          rss += p * p;
+          S[row + x + 1] = rs + S[prev + x + 1];
+          SS[row + x + 1] = rss + SS[prev + x + 1];
+        }
+    }
 
   /* eps keeps flat, finger-free regions from being amplified into noise */
   eps = 0.25 * gstd + 1.0;
@@ -203,9 +218,9 @@ elanpress_process_frame (const guint16 *frame, const guint16 *bg,
       q->coverage = (double) textured / n;
     }
 
-  g_free (d);
-  g_free (S);
-  g_free (SS);
+  free (d);
+  free (S);
+  free (SS);
   return out;
 }
 
@@ -891,7 +906,9 @@ pgm_header (FILE *f, int *w, int *h, int *maxval)
       if (fscanf (f, "%d", dst) != 1)
         return FALSE;
     }
-  fgetc (f); /* single whitespace after maxval */
+  /* exactly one whitespace byte separates the header from the pixels */
+  if (fgetc (f) == EOF)
+    return FALSE;
   return *w > 0 && *h > 0;
 }
 
