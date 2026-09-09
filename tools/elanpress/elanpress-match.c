@@ -144,8 +144,8 @@ elanpress_process_frame (const guint16 *frame, const guint16 *bg,
   int sw = w + 1;
   int r = MAX (norm_win, 3) / 2;
   float *d = g_new (float, n);
-  double *S = g_new0 (double, (size_t) sw * (h + 1));
-  double *SS = g_new0 (double, (size_t) sw * (h + 1));
+  double *S = g_new (double, (size_t) sw * (h + 1));
+  double *SS = g_new (double, (size_t) sw * (h + 1));
   guint8 *out = g_new (guint8, n);
   double sum = 0, sq = 0, mean, gstd, eps;
   int textured = 0;
@@ -159,6 +159,9 @@ elanpress_process_frame (const guint16 *frame, const guint16 *bg,
   mean = sum / n;
   gstd = sqrt (MAX (sq / n - mean * mean, 0.0));
 
+  /* integral images with a zero first row and column */
+  memset (S, 0, sizeof (double) * (size_t) sw * (h + 1));
+  memset (SS, 0, sizeof (double) * (size_t) sw * (h + 1));
   for (int y = 0; y < h; y++)
     for (int x = 0; x < w; x++)
       {
@@ -933,8 +936,9 @@ elanpress_pgm_read16 (const char *path, int *w, int *h)
   px = g_new (guint16, (size_t) *w * *h);
   for (int i = 0; i < *w * *h; i++)
     {
-      int hi = fgetc (f), lo = fgetc (f);
-      if (lo == EOF)
+      int hi = fgetc (f);
+      int lo = hi == EOF ? EOF : fgetc (f);
+      if (hi == EOF || lo == EOF)
         {
           g_free (px);
           fclose (f);
