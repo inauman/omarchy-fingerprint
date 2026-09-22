@@ -1,7 +1,7 @@
 From f92ee04622c5509cea00939fddc93c2c107395f6 Mon Sep 17 00:00:00 2001
 From: Mohammad Nauman <md.nauman@gmail.com>
 Date: Tue, 22 Sep 2026 10:21:25 -0700
-Subject: [PATCH 2/2] elanpress: per-device thresholds, add 04f3:0c63, widen
+Subject: [PATCH 2/3] elanpress: per-device thresholds, add 04f3:0c63, widen
  the rotation search
 
 Testing on an ELAN 04f3:0c63 (80x80 pad, Clevo NS50MU) showed the driver
