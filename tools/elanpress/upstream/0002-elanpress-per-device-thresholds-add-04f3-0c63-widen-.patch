@@ -1,0 +1,128 @@
+From f92ee04622c5509cea00939fddc93c2c107395f6 Mon Sep 17 00:00:00 2001
+From: Mohammad Nauman <md.nauman@gmail.com>
+Date: Tue, 22 Sep 2026 10:21:25 -0700
+Subject: [PATCH 2/2] elanpress: per-device thresholds, add 04f3:0c63, widen
+ the rotation search
+
+Testing on an ELAN 04f3:0c63 (80x80 pad, Clevo NS50MU) showed the driver
+works there unchanged, but the 0c3d threshold of 0.76 admitted an
+unenrolled finger once on that pad while 0.85 did not. Carry the accept
+threshold per device in the id table's driver_data (x1000), keep the
+FP_ELANPRESS_THRESHOLD override, and mark both values as calibrated on
+one pad each.
+
+Six of ten genuine presses from a second subject on that pad registered
+exactly at the +/-20 degree rotation limit, all on one side; widen the
+default search to +/-30 degrees.
+
+The coverage gate saturates at 1.00 on the larger pad; say so where it is
+defined so nobody reads it as a metric.
+
+0c63 has been in the elan table since #357, which was closed by adding
+the id without verification ever working on that unit; move it here and
+to the elanpress hwdb block.
+---
+ data/autosuspend.hwdb               |  2 +-
+ libfprint/drivers/elan.h            |  1 -
+ libfprint/drivers/elanpress-match.c |  4 +++-
+ libfprint/drivers/elanpress.c       |  2 ++
+ libfprint/drivers/elanpress.h       | 16 ++++++++++++++--
+ 5 files changed, 20 insertions(+), 5 deletions(-)
+
+diff --git a/data/autosuspend.hwdb b/data/autosuspend.hwdb
+index 7abc809..7a859d1 100644
+--- a/data/autosuspend.hwdb
++++ b/data/autosuspend.hwdb
+@@ -152,7 +152,6 @@ usb:v04F3p0C42*
+ usb:v04F3p0C4B*
+ usb:v04F3p0C4D*
+ usb:v04F3p0C4F*
+-usb:v04F3p0C63*
+ usb:v04F3p0C6E*
+ usb:v04F3p0C58*
+  ID_AUTOSUSPEND=1
+@@ -181,6 +180,7 @@ usb:v04F3p0CB6*
+ 
+ # Supported by libfprint driver elanpress
+ usb:v04F3p0C3D*
++usb:v04F3p0C63*
+  ID_AUTOSUSPEND=1
+  ID_PERSIST=0
+ 
+diff --git a/libfprint/drivers/elan.h b/libfprint/drivers/elan.h
+index f65ff68..1326316 100644
+--- a/libfprint/drivers/elan.h
++++ b/libfprint/drivers/elan.h
+@@ -220,7 +220,6 @@ static const FpIdEntry elan_id_table[] = {
+   {.vid = ELAN_VEND_ID,  .pid = 0x0c4b, .driver_data = ELAN_ALL_DEV},
+   {.vid = ELAN_VEND_ID,  .pid = 0x0c4d, .driver_data = ELAN_ALL_DEV},
+   {.vid = ELAN_VEND_ID,  .pid = 0x0c4f, .driver_data = ELAN_ALL_DEV},
+-  {.vid = ELAN_VEND_ID,  .pid = 0x0c63, .driver_data = ELAN_ALL_DEV},
+   {.vid = ELAN_VEND_ID,  .pid = 0x0c6e, .driver_data = ELAN_ALL_DEV},
+   {.vid = ELAN_VEND_ID,  .pid = 0x0c58, .driver_data = ELAN_0C58},
+   {.vid = 0,  .pid = 0,  .driver_data = 0},
+diff --git a/libfprint/drivers/elanpress-match.c b/libfprint/drivers/elanpress-match.c
+index cd11f43..b132d76 100644
+--- a/libfprint/drivers/elanpress-match.c
++++ b/libfprint/drivers/elanpress-match.c
+@@ -40,7 +40,9 @@
+ void
+ elanpress_match_params_default (ElanpressMatchParams *p)
+ {
+-  p->rot_range = 20.0;
++  /* +/-30: on an 80x80 pad a second subject's genuine presses pinned at
++   * the old +/-20 limit, all on one side */
++  p->rot_range = 30.0;
+   p->rot_step = 4.0;
+   p->min_overlap = 0.40;
+   p->threshold = 0.76;
+diff --git a/libfprint/drivers/elanpress.c b/libfprint/drivers/elanpress.c
+index 2eacb2c..d7ce99a 100644
+--- a/libfprint/drivers/elanpress.c
++++ b/libfprint/drivers/elanpress.c
+@@ -990,6 +990,8 @@ elanpress_open (FpDevice *dev)
+     }
+ 
+   elanpress_match_params_from_env (&self->params);
++  if (fpi_device_get_driver_data (dev) != 0 && !g_getenv ("FP_ELANPRESS_THRESHOLD"))
++    self->params.threshold = fpi_device_get_driver_data (dev) / 1000.0;
+   self->min_mean = env_double_default ("FP_ELANPRESS_MIN_MEAN", ELANPRESS_MIN_MEAN);
+   self->min_contrast = env_double_default ("FP_ELANPRESS_MIN_CONTRAST", ELANPRESS_MIN_CONTRAST);
+   self->min_coverage = env_double_default ("FP_ELANPRESS_MIN_COVERAGE", ELANPRESS_MIN_COVERAGE);
+diff --git a/libfprint/drivers/elanpress.h b/libfprint/drivers/elanpress.h
+index 4b23d43..f747e03 100644
+--- a/libfprint/drivers/elanpress.h
++++ b/libfprint/drivers/elanpress.h
+@@ -72,7 +72,10 @@
+ #define ELANPRESS_MIN_CALIBRATION_FW 0x0138
+ 
+ /* quality gates on a frame; raw sensor units. A finger raises the mean by
+- * roughly 1500 on the 0c3d pad. Both are env-tunable, see elanpress.c */
++ * roughly 1500 on the 0c3d pad. The coverage gate rejects a finger that
++ * only half landed on the small 0c3d pad; on larger pads (0c63, 80x80)
++ * every full press saturates it at 1.00, which is expected, not a signal.
++ * All are env-tunable, see elanpress.c */
+ #define ELANPRESS_MIN_MEAN 150.0
+ #define ELANPRESS_MIN_CONTRAST 40.0
+ #define ELANPRESS_MIN_COVERAGE 0.35
+@@ -80,7 +83,16 @@
+ G_DECLARE_FINAL_TYPE (FpiDeviceElanPress, fpi_device_elanpress, FPI,
+                       DEVICE_ELANPRESS, FpDevice);
+ 
++/* driver_data carries the per-device accept threshold x 1000. Both values
++ * are provisional: each was calibrated on one physical pad. 0c3d: 140-image
++ * pool, one subject (0/91 impostor images accepted, ~60% of genuine
++ * touches). 0c63: two subjects on one 80x80 pad; 0.76 admitted an unenrolled
++ * finger there, 0.85 did not (see the merge request discussion).
++ * FP_ELANPRESS_THRESHOLD overrides either at runtime. */
++#define ELANPRESS_THRESHOLD(t) ((guint64) ((t) * 1000 + 0.5))
++
+ static const FpIdEntry elanpress_id_table[] = {
+-  {.vid = ELANPRESS_VEND_ID, .pid = 0x0c3d, },
++  {.vid = ELANPRESS_VEND_ID, .pid = 0x0c3d, .driver_data = ELANPRESS_THRESHOLD (0.76), },
++  {.vid = ELANPRESS_VEND_ID, .pid = 0x0c63, .driver_data = ELANPRESS_THRESHOLD (0.85), },
+   {.vid = 0, .pid = 0, },
+ };
+-- 
+2.55.0
+

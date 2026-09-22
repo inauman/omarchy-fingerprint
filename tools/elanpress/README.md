@@ -130,8 +130,8 @@ parameters are runtime-overridable so they can be swept without rebuilding
 
 | variable | default | meaning |
 |---|---|---|
-| `FP_ELANPRESS_THRESHOLD` | 0.76 | accept at or above this score |
-| `FP_ELANPRESS_ROT_RANGE` / `ROT_STEP` | 20 / 4 | rotation search, degrees |
+| `FP_ELANPRESS_THRESHOLD` | per device: 0.76 (0c3d), 0.85 (0c63) | accept at or above this score |
+| `FP_ELANPRESS_ROT_RANGE` / `ROT_STEP` | 30 / 4 | rotation search, degrees |
 | `FP_ELANPRESS_MIN_OVERLAP` | 0.40 | fraction of the frame that must overlap |
 | `FP_ELANPRESS_NORM_WIN` | 11 | local-normalisation window, px |
 | `FP_ELANPRESS_MIN_MEAN` / `MIN_CONTRAST` / `MIN_COVERAGE` | 150 / 40 / 0.35 | frame quality gates, raw units |
