@@ -136,6 +136,7 @@ parameters are runtime-overridable so they can be swept without rebuilding
 | `FP_ELANPRESS_NORM_WIN` | 11 | local-normalisation window, px |
 | `FP_ELANPRESS_MIN_MEAN` / `MIN_CONTRAST` / `MIN_COVERAGE` | 150 / 40 / 0.35 | frame quality gates, raw units |
 | `FP_ELANPRESS_ENROLL_STAGES` | 20 | touches per enrolment (1–40) |
+| `FP_ELANPRESS_ROT_PREFILTER` | 3 | rotations kept after a quarter-resolution ranking; 0 = search all |
 | `FP_ELANPRESS_SCORE_MODE` / `BLOCK_WEIGHT` | 0 / 0 | experimental scores, measured worse; keep at 0 |
 | `FP_ELANPRESS_DUMP_DIR` | unset | write every frame as PGM here |
 
