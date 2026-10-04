@@ -3,7 +3,7 @@ import QtQuick
 // A fingerprint drawn as thin concentric ridges, each split into short
 // segments. `progress` (0..1) fills segments in a fixed scattered order, so
 // the print appears to fill in from several directions at once rather than
-// wiping from the bottom, the way Touch ID enrolment does.
+// wiping from the bottom, the way Touch ID enrollment does.
 Canvas {
   id: root
 

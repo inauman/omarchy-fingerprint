@@ -1,4 +1,4 @@
-// Pure helpers for the enrolment overlay, kept out of the QML so they can
+// Pure helpers for the enrollment overlay, kept out of the QML so they can
 // be reasoned about (and tested) without a shell.
 .pragma library
 
@@ -15,28 +15,28 @@ function stepForResult(status) {
   case "enroll-swipe-too-short":
     return { kind: "retry", message: "Too short. Hold the finger on the sensor for a second" }
   case "enroll-finger-not-centered":
-    return { kind: "retry", message: "Centre the finger on the sensor" }
+    return { kind: "retry", message: "Center the finger on the sensor" }
   case "enroll-remove-and-retry":
     return { kind: "retry", message: "Lift the finger, then press again" }
   case "enroll-duplicate":
-    return { kind: "failed", message: "This finger is already enrolled" }
+    return { kind: "failed", message: "This finger is already enrolled, possibly as another finger" }
   case "enroll-data-full":
     return { kind: "failed", message: "The reader's storage is full" }
   case "enroll-disconnected":
     return { kind: "failed", message: "The reader was disconnected" }
   case "enroll-failed":
   case "enroll-unknown-error":
-    return { kind: "failed", message: "Enrolment failed. Try again" }
+    return { kind: "failed", message: "Enrollment failed. Try again" }
   default:
     return null
   }
 }
 
-// One stdout line from fprintd-enroll -> a step, or null for chatter.
+// One output line from fprintd-enroll -> a step, or null for chatter.
 function stepForLine(line) {
   var s = String(line || "").trim()
-  // The password prompt was cancelled or refused: fprintd answers with a
-  // PermissionDenied D-Bus error. That is the user saying no, not a fault.
+  // The password prompt was cancelled or failed: fprintd answers both with a
+  // PermissionDenied D-Bus error, so they cannot be told apart here.
   if (/PermissionDenied|Not Authori[sz]ed/i.test(s)) return { kind: "cancelled", message: "" }
   var m = s.match(/^Enroll result:\s*(\S+)/)
   if (m) return stepForResult(m[1])
@@ -49,13 +49,13 @@ function stepForLine(line) {
 }
 
 // Where to press next. Coverage is what makes a small sensor match, so walk
-// the finger around a spiral: centre first, then the ring around it.
+// the finger around a spiral: center first, then the ring around it.
 var placements = [
-  "the centre of the fingertip",
-  "slightly above centre",
-  "slightly right of centre",
-  "slightly below centre",
-  "slightly left of centre",
+  "the center of the fingertip",
+  "slightly above center",
+  "slightly right of center",
+  "slightly below center",
+  "slightly left of center",
   "the upper-right",
   "the lower-right",
   "the lower-left",

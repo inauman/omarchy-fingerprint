@@ -1,12 +1,12 @@
-# Fingerprint enrolment overlay for Omarchy
+# Fingerprint enrollment overlay for Omarchy
 
-An Omarchy shell plugin that turns `fprintd-enroll` into the enrolment flow
+An Omarchy shell plugin that turns `fprintd-enroll` into the enrollment flow
 phones have: a fingerprint glyph that fills in from the bottom with every
 accepted press, a "7 of 20" counter, a plain-language message for each
 result the reader reports, and a hint for where to press next.
 
 The hint is the point. On a small press sensor a print only verifies when
-the probe overlaps something enrolled, so enrolment must walk the finger
+the probe overlaps something enrolled, so enrollment must walk the finger
 around; a terminal printing `enroll-stage-passed` twenty times does not
 tell anyone that. The overlay walks a spiral: centre, above, right, below,
 left, then the four corners, and repeats.

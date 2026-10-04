@@ -6,8 +6,8 @@ import qs.Commons
 import qs.Ui
 import "EnrollModel.js" as EnrollModel
 
-// Fingerprint enrolment overlay. Drives `fprintd-enroll` and turns its
-// per-stage results into a print that fills in from the bottom, the way a
+// Fingerprint enrollment overlay. Drives `fprintd-enroll` and turns its
+// per-stage results into a print that fills in press by press, the way a
 // phone does it, with a placement hint for the next press. Summon with:
 //
 //   omarchy-shell shell summon inauman.fingerprint-enroll \
@@ -23,7 +23,7 @@ Item {
 
   property bool opened: false
   property string finger: "right-index-finger"
-  property string user: Quickshell.env("USER")
+  readonly property string user: Quickshell.env("USER")
   property string doneFile: ""
   property bool resultSent: false
   property int totalStages: 5
@@ -31,16 +31,15 @@ Item {
   // idle | checking | setup | installing | starting | waiting | confirm |
   // enabling | done | failed | pick
   property string phase: "idle"
-  // first-time flow: install, enrol, confirm with a touch, enable PAM
+  // first-time flow: install, enroll, confirm with a touch, enable PAM
   property bool setupFlow: false
-  property string helper: ""
   property int confirmTries: 0
   // picker state: hand 0 left / 1 right, finger 0 thumb .. 4 little
   property int pickHand: 1
   property int pickFinger: 1
   property var enrolled: []
   // true when opened without a finger: return to the picker after each
-  // enrolment instead of closing
+  // enrollment instead of closing
   property bool pickerMode: false
   property string message: ""
   property string hint: ""
@@ -66,10 +65,8 @@ Item {
     var payload = ({})
     try { payload = JSON.parse(payloadJson || "{}") } catch (e) { payload = ({}) }
 
-    root.user = payload.user || Quickshell.env("USER")
     root.doneFile = payload.doneFile || ""
     root.resultSent = false
-    if (payload.totalStages > 0) root.totalStages = payload.totalStages
     root.pickerMode = !EnrollModel.validFinger(payload.finger)
     root.setupFlow = false
     root.opened = true
@@ -90,7 +87,7 @@ Item {
     root.phase = "setup"
     root.setupFlow = true
     root.message = "Fingerprint login is off"
-    root.hint = "Press Enter to turn it on. You will be asked for your password once"
+    root.hint = "Press Enter to turn it on. You will be asked for your password"
     root.errorFlash = false
     listProc.running = true
   }
@@ -99,7 +96,7 @@ Item {
     root.phase = "installing"
     root.message = "Setting up"
     root.hint = ""
-    helperProc.command = ["pkexec", root.helper, "install"]
+    helperProc.command = ["omarchy-fingerprint-setup-helper", "install"]
     helperProc.running = true
   }
 
@@ -119,13 +116,13 @@ Item {
     root.phase = "enabling"
     root.message = "Turning fingerprint login on"
     root.hint = ""
-    helperProc.command = ["pkexec", root.helper, "enable-pam"]
+    helperProc.command = ["omarchy-fingerprint-setup-helper", "enable-login"]
     helperProc.running = true
   }
 
   function showPicker() {
     root.phase = "pick"
-    root.message = root.setupFlow ? "Choose the finger to enrol first" : "Choose a finger to enrol"
+    root.message = root.setupFlow ? "Choose the finger to enroll first" : "Choose a finger to enroll"
     root.hint = "Arrow keys and Enter, or click. Esc closes"
     root.errorFlash = false
     listProc.running = true
@@ -203,20 +200,26 @@ Item {
       }
       root.phase = "done"
       root.message = step.message
-      root.hint = EnrollModel.fingerLabel(root.finger) + " is ready for sudo, polkit and the lock screen"
+      root.hint = EnrollModel.fingerLabel(root.finger) + " is ready for sudo, admin prompts and the lock screen"
       root.finish("ok")
       closeTimer.restart()
       break
     case "cancelled":
-      // password prompt cancelled: report it and leave, one Esc in total
+      // fprintd refused: the password prompt was cancelled or failed (it
+      // reports both the same way). One Esc in total, and say why.
       root.finish("failed")
-      if (root.pickerMode) root.showPicker()
-      else root.dismiss()
+      if (root.pickerMode) {
+        root.showPicker()
+        root.message = "Not added: your password is needed to add a fingerprint"
+        errorFlashTimer.restart()
+      } else {
+        root.dismiss()
+      }
       break
     case "failed":
       root.phase = "failed"
       root.message = step.message
-      root.hint = "Press Esc to close"
+      root.hint = root.pickerMode ? "Press Esc to go back" : "Press Esc to close"
       errorFlashTimer.restart()
       root.finish("failed")
       break
@@ -252,26 +255,23 @@ Item {
     }
   }
 
-  // Which helper exists, and where the machine stands: "ready" (PAM on and
-  // a finger enrolled elsewhere is irrelevant here), "enrol" (packages in,
-  // PAM off), "install". Without a helper the widget only enrols.
+  // Where the machine stands: "ready" (PAM on), "enroll" (packages in, PAM
+  // off) or "install". Anything but ready starts the first-run flow.
   Process {
     id: statusProc
-    command: ["bash", "-c",
-      "for h in /usr/bin/omarchy-fingerprint-setup-helper /usr/local/bin/omarchy-fingerprint-setup-helper; do " +
-      "[[ -x $h ]] && { echo \"$h $($h status 2>/dev/null)\"; exit 0; }; done; echo 'none ready'"]
+    command: ["omarchy-fingerprint-setup-helper", "status"]
     stdout: StdioCollector { id: statusStdout; waitForEnd: true }
     onExited: {
-      var parts = String(statusStdout.text || "").trim().split(/\s+/)
-      root.helper = parts[0] === "none" ? "" : parts[0]
-      var state = parts[1] || "ready"
+      var state = String(statusStdout.text || "").trim()
       if (!root.opened) return
-      if (state === "ready" || !root.helper) root.showPicker()
-      else root.showSetup()
+      if (state === "enroll" || state === "install") root.showSetup()
+      else root.showPicker()
     }
   }
 
-  // root steps through polkit: one admin password, remembered a few minutes
+  // The privileged steps: the helper re-runs itself through pkexec, which
+  // shows the password prompt on screen. 126 = prompt dismissed, 127 = not
+  // authorized.
   Process {
     id: helperProc
     stdout: SplitParser {
@@ -290,11 +290,11 @@ Item {
             root.beginConfirm()
           } else {
             root.showPicker()
-            root.message = "Choose the finger to enrol first"
+            root.message = "Choose the finger to enroll first"
           }
         } else {
           root.showSetup()
-          root.message = exitCode === 126 || exitCode === 127 ? "Set-up was cancelled" : "Set-up failed (" + exitCode + ")"
+          root.message = exitCode === 126 || exitCode === 127 ? "Setup was cancelled" : "Setup failed. Check your internet connection and try again"
           errorFlashTimer.restart()
         }
       } else if (root.phase === "enabling") {
@@ -307,7 +307,7 @@ Item {
           closeTimer.restart()
         } else {
           root.phase = "failed"
-          root.message = exitCode === 126 || exitCode === 127 ? "Turning it on was cancelled" : "Could not turn on fingerprint login (" + exitCode + ")"
+          root.message = exitCode === 126 || exitCode === 127 ? "Turning it on was cancelled" : "Could not turn on fingerprint login"
           root.hint = "Press Enter to try again, Esc to close"
           errorFlashTimer.restart()
         }
@@ -334,7 +334,7 @@ Item {
           } else {
             root.phase = "failed"
             root.message = "Couldn't verify " + EnrollModel.fingerLabel(root.finger).toLowerCase()
-            root.hint = "Press Enter to enrol it again with more coverage, Esc to close"
+            root.hint = "Press Enter to enroll it again, Esc to close"
           }
         }
       }
@@ -343,8 +343,8 @@ Item {
       if (root.phase !== "confirm" || !root.opened) return
       if (exitCode !== 0 && !retryConfirmTimer.running) {
         root.phase = "failed"
-        root.message = "Verification did not run (" + exitCode + ")"
-        root.hint = "Press Enter to enrol again, Esc to close"
+        root.message = "The reader did not respond"
+        root.hint = "Press Enter to enroll again, Esc to close"
       }
     }
   }
@@ -409,12 +409,10 @@ Item {
 
   Process {
     id: enrollProc
-    // No username: fprintd then enrols the caller, which polkit allows
+    // No username: fprintd then enrolls the caller, which polkit allows
     // with the user's own password (auth_self_keep). Naming the user, even
     // yourself, trips the stricter setusername rule (auth_admin_keep).
-    command: root.user && root.user !== Quickshell.env("USER")
-      ? ["fprintd-enroll", "-f", root.finger, root.user]
-      : ["fprintd-enroll", "-f", root.finger]
+    command: ["fprintd-enroll", "-f", root.finger]
     stdout: SplitParser {
       onRead: function(line) {
         var step = EnrollModel.stepForLine(line)
@@ -436,7 +434,7 @@ Item {
     onExited: function(exitCode) {
       if (!root.opened) return
       if (root.phase !== "starting" && root.phase !== "waiting") return
-      root.applyStep({ kind: "failed", message: exitCode === 0 ? "Enrolment ended early" : "Enrolment failed (fprintd-enroll exited " + exitCode + ")" })
+      root.applyStep({ kind: "failed", message: "Enrollment stopped. Try again" })
     }
   }
 
@@ -500,8 +498,9 @@ Item {
           switch (event.key) {
           case Qt.Key_Up: root.pickMove(0, -1); break
           case Qt.Key_Down: root.pickMove(0, 1); break
-          case Qt.Key_Left: root.pickMove(-1, 0); break
-          case Qt.Key_Right: case Qt.Key_Tab: root.pickMove(root.pickHand === 1 ? -1 : 1, 0); break
+          case Qt.Key_Left: root.pickHand = 0; break
+          case Qt.Key_Right: root.pickHand = 1; break
+          case Qt.Key_Tab: root.pickHand = 1 - root.pickHand; break
           case Qt.Key_Return: case Qt.Key_Enter: root.startEnroll(EnrollModel.fingerId(root.pickHand, root.pickFinger)); break
           default: event.accepted = false
           }
@@ -523,7 +522,7 @@ Item {
           text: root.phase === "pick" ? "Fingerprints"
               : (root.phase === "checking" || root.phase === "setup" || root.phase === "installing" || root.phase === "enabling") ? "Fingerprint login"
               : root.phase === "confirm" ? "Confirm " + EnrollModel.fingerLabel(root.finger).toLowerCase()
-              : "Enrol " + EnrollModel.fingerLabel(root.finger).toLowerCase()
+              : "Enroll " + EnrollModel.fingerLabel(root.finger).toLowerCase()
           color: root.foreground
           font.family: root.fontFamily
           font.pixelSize: Style.font.title
