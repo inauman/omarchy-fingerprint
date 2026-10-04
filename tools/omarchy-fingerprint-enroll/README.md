@@ -15,47 +15,38 @@ left, then the four corners, and repeats.
 tools/omarchy-fingerprint-enroll/
   manifest.json                 plugin manifest, id inauman.fingerprint-enroll
   Enroll.qml                    the overlay
+  FingerprintGlyph.qml          the fingerprint drawing
   EnrollModel.js                result parsing and hints, no QML
   install.sh                    copy into ~/.config/omarchy/plugins and enable
-  omarchy-fingerprint-enroll    wrapper: no argument opens the finger picker,
-                                a finger name enrols it and waits; falls back
-                                to fprintd-enroll without a shell
-  upstream/omarchy-setup-security-fingerprint
-                                proposed replacement for Omarchy's setup script
-  upstream/omarchy-fingerprint-setup-helper
-                                root helper: install, enable-pam, disable-pam, status
-  upstream/org.omarchy.fingerprint.policy
-                                polkit action for the helper (admin password, kept)
+  omarchy-fingerprint-enroll    summon the overlay (picker, or one finger and wait)
+  upstream/                     the setup helper and setup script as in the PR
 ```
 
-## How it fits Omarchy's menu
+## How it fits Omarchy
 
-One row, no terminal. Setup > Security > Fingerprint always opens the
-overlay:
+One menu row, no terminal. Setup > Security > Fingerprint opens the overlay
+when the shell is running:
 
-- **First run** ("Fingerprint login is off"): Enter asks for the admin
-  password once, in Omarchy's own polkit dialog, then a root helper installs
-  the packages; the overlay enrols the right
-  index with on-screen guidance, asks for one touch to confirm the print,
-  and the helper turns PAM on for sudo, polkit and the lock screen.
-- **Every later run**: the finger picker; adding a finger asks for your own password once.
+- **First run**: install the packages, pick a finger, enroll it with the
+  guide, touch once to confirm, and fingerprint login is turned on for sudo,
+  admin prompts and the lock screen.
+- **Later runs**: the finger picker.
 
-The root half is `upstream/omarchy-fingerprint-setup-helper`, called
-through `pkexec` under the polkit action in `upstream/org.omarchy.fingerprint.policy`
-(`auth_admin_keep`, so both root steps of the first run cost one password).
-`upstream/omarchy-setup-security-fingerprint` is the proposed replacement
-for Omarchy's script: it launches the overlay when the shell is running and
-keeps a text flow for TTY or SSH.
+Enrolling asks for your own password (fprintd's default polkit policy,
+remembered for a few minutes), so an unlocked session alone cannot add a
+fingerprint to your account.
 
-On this machine the row is overridden in
-`~/.config/omarchy/extensions/omarchy-menu.jsonc` to call the wrapper, and
-the helper lives in `/usr/local/bin` with `org.omarchy.fingerprint.local.policy`
-pointing at it:
+The privileged steps go through `upstream/omarchy-fingerprint-setup-helper`,
+which re-runs itself through `pkexec` from `/usr/bin` with `PATH` pinned,
+the same pattern Omarchy's `omarchy-dns` uses. It adds no setup logic of its
+own: turning login on runs `omarchy-setup-security-fingerprint
+--enable-login` (`upstream/omarchy-setup-security-fingerprint`), which reuses
+that script's PAM step and `omarchy-apply-lock`. Without a running shell the
+setup script's text flow is unchanged.
 
-```sh
-sudo install -m 755 tools/omarchy-fingerprint-enroll/upstream/omarchy-fingerprint-setup-helper /usr/local/bin/
-sudo install -m 644 tools/omarchy-fingerprint-enroll/upstream/org.omarchy.fingerprint.local.policy /usr/share/polkit-1/actions/org.omarchy.fingerprint.policy
-```
+This is what [omacom/omarchy#10689](https://github.com/omacom/omarchy/pull/10689)
+proposes. On this machine the row is overridden in
+`~/.config/omarchy/extensions/omarchy-menu.jsonc` to call the local wrapper.
 
 ## Use
 
