@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# omarchy:summary=Root half of fingerprint setup, driven by the enrolment overlay through polkit
+# omarchy:hidden=true
+
 # Root half of fingerprint setup, driven by the enrolment overlay through
 # polkit (org.omarchy.fingerprint.setup, admin password, remembered a few
 # minutes). Non-interactive by design; every step prints one line.
@@ -28,10 +32,10 @@ status() {
 
 install_all() {
   echo "Installing fingerprint packages"
-  if pacman -Q libfprint-git &>/dev/null; then
-    pacman -Rdd --noconfirm libfprint-git >/dev/null
-  fi
-  pacman -S --needed --noconfirm libfprint fprintd usbutils >/dev/null
+  # Same package set as the text flow: libfprint-git tracks upstream ahead of
+  # the Arch release, and --ask 4 accepts its replacement of stock libfprint
+  # in one transaction, so a failed install leaves the existing driver alone.
+  pacman -S --needed --noconfirm --ask 4 -- libfprint-git fprintd usbutils >/dev/null
   echo "Allowing fingerprint enrolment without a password"
   install -D -m 644 /dev/stdin "$RULE" <<'RULES'
 // Let anyone logged in at this machine enrol their own fingerprints without
@@ -60,15 +64,17 @@ enable_pam() {
     grep -q pam_fprintd.so /etc/pam.d/polkit-1 || sed -i '1i auth      sufficient pam_fprintd.so' /etc/pam.d/polkit-1
     grep -q omarchy-hw-laptop-closed /etc/pam.d/polkit-1 || sed -i "/pam_fprintd\.so/i $GATE" /etc/pam.d/polkit-1
   else
-    cat > /etc/pam.d/polkit-1 <<PAM
+    # Defer to system-auth rather than listing pam_unix, so pam_faillock's
+    # lockout and shared tally still cover polkit prompts (see #9873).
+    tee /etc/pam.d/polkit-1 >/dev/null <<EOF
 $GATE
 auth      sufficient pam_fprintd.so
-auth      required pam_unix.so
+auth      include system-auth
 
-account   required pam_unix.so
-password  required pam_unix.so
-session   required pam_unix.so
-PAM
+account   include system-auth
+password  include system-auth
+session   include system-auth
+EOF
   fi
 
   echo "Configuring the lock screen"
