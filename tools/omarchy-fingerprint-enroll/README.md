@@ -35,10 +35,10 @@ overlay:
 
 - **First run** ("Fingerprint login is off"): Enter asks for the admin
   password once, in Omarchy's own polkit dialog, then a root helper installs
-  the packages and the enrolment polkit rule; the overlay enrols the right
+  the packages; the overlay enrols the right
   index with on-screen guidance, asks for one touch to confirm the print,
   and the helper turns PAM on for sudo, polkit and the lock screen.
-- **Every later run**: the finger picker, with no prompt of any kind.
+- **Every later run**: the finger picker; adding a finger asks for your own password once.
 
 The root half is `upstream/omarchy-fingerprint-setup-helper`, called
 through `pkexec` under the polkit action in `upstream/org.omarchy.fingerprint.policy`
