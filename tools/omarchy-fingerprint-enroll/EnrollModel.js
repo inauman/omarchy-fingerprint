@@ -35,11 +35,16 @@ function stepForResult(status) {
 // One stdout line from fprintd-enroll -> a step, or null for chatter.
 function stepForLine(line) {
   var s = String(line || "").trim()
+  // The password prompt was cancelled or refused: fprintd answers with a
+  // PermissionDenied D-Bus error. That is the user saying no, not a fault.
+  if (/PermissionDenied|Not Authori[sz]ed/i.test(s)) return { kind: "cancelled", message: "" }
   var m = s.match(/^Enroll result:\s*(\S+)/)
   if (m) return stepForResult(m[1])
   if (/^failed to claim device/i.test(s)) return { kind: "failed", message: "The reader is busy. Close other fingerprint tools and retry" }
-  if (/^EnrollStart failed/i.test(s)) return { kind: "failed", message: "Could not start enrolment: " + s.replace(/^EnrollStart failed:\s*/i, "") }
-  if (/^Failed to /i.test(s) || /^failed to /i.test(s)) return { kind: "failed", message: s }
+  // Anything else from fprintd-enroll is a D-Bus error string; keep it out of
+  // the overlay (it is in the journal) and say something a person can act on.
+  if (/^EnrollStart failed/i.test(s) || /^failed to /i.test(s))
+    return { kind: "failed", message: "The fingerprint reader could not start. Try again, or replug it" }
   return null
 }
 

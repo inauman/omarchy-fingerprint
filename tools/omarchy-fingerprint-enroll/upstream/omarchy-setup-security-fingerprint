@@ -16,21 +16,34 @@ fi
 # polkit prompt), enrols the right index with on-screen guidance, confirms it
 # with a touch, and turns fingerprint login on; later runs open the finger
 # picker. No terminal involved.
-if omarchy-shell -q shell ping 2>/dev/null; then
+if [[ $(omarchy-shell shell ping 2>/dev/null) == "ok" ]]; then
   exec omarchy-fingerprint-enroll
 fi
 
 # No shell (TTY, SSH): the same steps, in text.
 echo -e "\e[32mSetting up fingerprint scanner for authentication.\n\e[0m"
-sudo omarchy-fingerprint-setup-helper install
+
+# libfprint-git tracks upstream ahead of the Arch release, so a new reader only
+# needs a pin bump in omarchy-pkgs. It conflicts with stock libfprint, and
+# --noconfirm answers that prompt with N; --ask 4 accepts the replacement in
+# one transaction, so a failed install leaves the existing driver in place.
+if omarchy-pkg-missing libfprint-git fprintd usbutils; then
+  echo "Installing required packages..."
+  sudo pacman -S --needed --noconfirm --ask 4 -- libfprint-git fprintd usbutils
+fi
 
 echo -e "\e[32m\nLet's setup your right index finger as the first fingerprint.\e[0m"
 echo -e "Press, lift, shift the finger a little, press again, until it completes.\n"
-if fprintd-enroll -f right-index-finger; then
-  echo -e "\nNow touch the sensor once to verify.\n"
-  if fprintd-verify -f right-index-finger; then
+
+if sudo fprintd-enroll "$USER"; then
+  echo -e "\e[32m\nFingerprint enrolled successfully!\e[0m"
+  echo -e "\nNow let's verify that it's working correctly.\n"
+  if fprintd-verify; then
+    # PAM comes last, once a print is enrolled and verified, so a reader
+    # libfprint cannot drive never leaves the stacks pointing at pam_fprintd.
     sudo omarchy-fingerprint-setup-helper enable-pam
     echo -e "\e[32m\nPerfect! Fingerprint authentication is now configured.\e[0m"
+    echo "You can use your fingerprint for sudo, polkit, and lock screen (Super + Ctrl + L)."
   else
     echo -e "\e[31m\nVerification failed. You may want to try enrolling again.\e[0m"
   fi

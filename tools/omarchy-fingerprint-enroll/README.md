@@ -26,8 +26,6 @@ tools/omarchy-fingerprint-enroll/
                                 root helper: install, enable-pam, disable-pam, status
   upstream/org.omarchy.fingerprint.policy
                                 polkit action for the helper (admin password, kept)
-  upstream/49-omarchy-fingerprint-enroll.rules
-                                enrolment without a password; the helper installs it
 ```
 
 ## How it fits Omarchy's menu
@@ -73,21 +71,10 @@ Payload keys: `finger` (fprintd name, default `right-index-finger`),
 closes), `totalStages` (otherwise read from fprintd over D-Bus). Esc or a
 click outside cancels; fprintd keeps the previous print for that finger.
 
-Polkit asks for your own password once before enrolment
-(`net.reactivated.fprint.device.enroll` is `auth_self_keep`) and remembers
-it for a few minutes; the overlay deliberately never passes a username,
-because naming the user, even yourself, trips the stricter `setusername`
-rule that wants an admin password every time. The setup script avoided
-both by running `fprintd-enroll` under sudo; the wrapper runs it as you.
-
-To make it phone-like, no prompt for anyone logged in at the machine,
-install the rule in `upstream/`; polkit picks it up immediately. The
-proposed setup-script patch installs it during first-time setup, which
-already runs under sudo, so Omarchy users would never see a prompt:
-
-```sh
-sudo install -m 644 tools/omarchy-fingerprint-enroll/upstream/49-omarchy-fingerprint-enroll.rules /etc/polkit-1/rules.d/
-```
+Enrolling asks for your own password once (fprintd's default polkit policy,
+remembered for a few minutes), so an unlocked session alone cannot add a
+fingerprint to your account. The overlay never passes a username, which
+would trip the stricter `setusername` rule that wants an admin password.
 
 ## Works with any reader
 

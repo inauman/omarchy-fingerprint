@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# omarchy:summary=Enrol fingerprints with the on-screen guide
+# omarchy:args=[finger]
+# omarchy:examples=omarchy fingerprint enroll | omarchy fingerprint enroll right-thumb
+
 # Enrol fingerprints through the shell overlay, falling back to plain
 # fprintd-enroll when no shell is running.
 #
@@ -11,7 +16,7 @@ set -uo pipefail
 FINGER=${1:-}
 PLUGIN=${OMARCHY_FINGERPRINT_ENROLL_PLUGIN:-inauman.fingerprint-enroll}
 
-if ! omarchy-shell -q shell ping 2>/dev/null; then
+if [[ $(omarchy-shell shell ping 2>/dev/null) != "ok" ]]; then
   exec fprintd-enroll ${FINGER:+-f "$FINGER"}
 fi
 

@@ -25,6 +25,7 @@ Item {
   property string finger: "right-index-finger"
   property string user: Quickshell.env("USER")
   property string doneFile: ""
+  property bool resultSent: false
   property int totalStages: 5
   property int stagesPassed: 0
   // idle | checking | setup | installing | starting | waiting | confirm |
@@ -67,6 +68,7 @@ Item {
 
     root.user = payload.user || Quickshell.env("USER")
     root.doneFile = payload.doneFile || ""
+    root.resultSent = false
     if (payload.totalStages > 0) root.totalStages = payload.totalStages
     root.pickerMode = !EnrollModel.validFinger(payload.finger)
     root.setupFlow = false
@@ -169,9 +171,13 @@ Item {
     else root.open("{}")
   }
 
+  // Report the result once. execDetached runs outside this plugin, so the
+  // write completes even when hiding the overlay unloads the plugin right
+  // after (keepLoaded is false); a waiting caller never sits out a timeout.
   function finish(result) {
-    if (root.doneFile) doneWriter.command = ["bash", "-c", "printf '%s\\n' \"$1\" > \"$2\"", "_", result, root.doneFile]
-    if (root.doneFile) doneWriter.running = true
+    if (!root.doneFile || root.resultSent) return
+    root.resultSent = true
+    Quickshell.execDetached(["bash", "-c", "printf '%s\\n' \"$1\" > \"$2\"", "_", result, root.doneFile])
   }
 
   function applyStep(step) {
@@ -200,6 +206,12 @@ Item {
       root.hint = EnrollModel.fingerLabel(root.finger) + " is ready for sudo, polkit and the lock screen"
       root.finish("ok")
       closeTimer.restart()
+      break
+    case "cancelled":
+      // password prompt cancelled: report it and leave, one Esc in total
+      root.finish("failed")
+      if (root.pickerMode) root.showPicker()
+      else root.dismiss()
       break
     case "failed":
       root.phase = "failed"
@@ -360,7 +372,6 @@ Item {
     stdout: StdioCollector { id: stagesStdout; waitForEnd: true }
     onExited: {
       var parts = String(stagesStdout.text || "").trim().split(/\s+/)
-      console.log("fingerprint-enroll: device lookup -> " + JSON.stringify(parts))
       if (parts.length >= 1 && parts[0].indexOf("/") === 0) {
         root.devicePath = parts[0]
         if (root.opened) monitorProc.running = true
@@ -376,9 +387,6 @@ Item {
   Process {
     id: monitorProc
     command: ["gdbus", "monitor", "--system", "--dest", "net.reactivated.Fprint", "--object-path", root.devicePath]
-    onStarted: console.log("fingerprint-enroll: monitor started on " + root.devicePath)
-    onExited: function(code) { console.log("fingerprint-enroll: monitor exited " + code) }
-    stderr: SplitParser { onRead: function(line) { console.log("fingerprint-enroll: monitor stderr " + line) } }
     stdout: SplitParser {
       onRead: function(line) {
         var m = String(line).match(/'finger-present': <(true|false)>/)
@@ -422,7 +430,7 @@ Item {
     stderr: SplitParser {
       onRead: function(line) {
         var step = EnrollModel.stepForLine(line)
-        if (step && step.kind === "failed") root.applyStep(step)
+        if (step && (step.kind === "failed" || step.kind === "cancelled")) root.applyStep(step)
       }
     }
     onExited: function(exitCode) {
@@ -430,10 +438,6 @@ Item {
       if (root.phase !== "starting" && root.phase !== "waiting") return
       root.applyStep({ kind: "failed", message: exitCode === 0 ? "Enrolment ended early" : "Enrolment failed (fprintd-enroll exited " + exitCode + ")" })
     }
-  }
-
-  Process {
-    id: doneWriter
   }
 
   PanelWindow {

@@ -7,13 +7,12 @@
 # polkit (org.omarchy.fingerprint.setup, admin password, remembered a few
 # minutes). Non-interactive by design; every step prints one line.
 #
-#   omarchy-fingerprint-setup-helper install       packages + enrolment polkit rule
+#   omarchy-fingerprint-setup-helper install       fingerprint packages
 #   omarchy-fingerprint-setup-helper enable-pam    sudo, polkit, lock screen
 #   omarchy-fingerprint-setup-helper disable-pam   undo enable-pam
 #   omarchy-fingerprint-setup-helper status        "ready" | "enrol" | "install"
 set -euo pipefail
 
-RULE=/etc/polkit-1/rules.d/49-omarchy-fingerprint-enroll.rules
 # Runs before pam_fprintd in every stack: with the lid shut the reader is
 # unreachable, so skip fingerprint and fall to the password at once.
 GATE="auth      [success=1 default=ignore] pam_exec.so quiet /usr/bin/omarchy-hw-laptop-closed"
@@ -21,9 +20,7 @@ GATE="auth      [success=1 default=ignore] pam_exec.so quiet /usr/bin/omarchy-hw
 status() {
   if grep -qs pam_fprintd.so /etc/pam.d/sudo && [[ -f /etc/pam.d/omarchy-lock-fingerprint ]]; then
     echo ready
-  elif command -v fprintd-enroll >/dev/null; then
-    # packages are in; the polkit rule lives in a root-only directory, so it
-    # cannot be checked from here and `install` re-adds it anyway
+  elif omarchy-cmd-present fprintd-enroll; then
     echo enrol
   else
     echo install
@@ -31,26 +28,14 @@ status() {
 }
 
 install_all() {
-  echo "Installing fingerprint packages"
-  # Same package set as the text flow: libfprint-git tracks upstream ahead of
-  # the Arch release, and --ask 4 accepts its replacement of stock libfprint
-  # in one transaction, so a failed install leaves the existing driver alone.
-  pacman -S --needed --noconfirm --ask 4 -- libfprint-git fprintd usbutils >/dev/null
-  echo "Allowing fingerprint enrolment without a password"
-  install -D -m 644 /dev/stdin "$RULE" <<'RULES'
-// Let anyone logged in at this machine enrol their own fingerprints without
-// typing a password, so the Fingerprint widget works like a phone's.
-// fprintd's default (auth_self_keep) re-asks every few minutes; this grants
-// the same trust fprintd already gives verification. A finger only ever
-// unlocks its own account; sudo rights still come from sudoers. Managing
-// other users' prints (setusername) keeps requiring an admin password.
-polkit.addRule(function (action, subject) {
-  if (action.id == "net.reactivated.fprint.device.enroll" &&
-      subject.local && subject.active) {
-    return polkit.Result.YES;
-  }
-});
-RULES
+  # Same package step as omarchy-setup-security-fingerprint: libfprint-git
+  # tracks upstream ahead of the Arch release, and --ask 4 accepts its
+  # replacement of stock libfprint in one transaction, so a failed install
+  # leaves the existing driver alone.
+  if omarchy-pkg-missing libfprint-git fprintd usbutils; then
+    echo "Installing fingerprint packages"
+    pacman -S --needed --noconfirm --ask 4 -- libfprint-git fprintd usbutils >/dev/null
+  fi
   echo "Packages ready"
 }
 
@@ -66,6 +51,9 @@ enable_pam() {
   else
     # Defer to system-auth rather than listing pam_unix, so pam_faillock's
     # lockout and shared tally still cover polkit prompts (see #9873).
+    # omarchy:heredoc-expands paths=none -- $GATE is the literal PAM line
+    # defined at the top of this file; its only path is the fixed, root-owned
+    # /usr/bin/omarchy-hw-laptop-closed, as in omarchy-setup-security-fingerprint.
     tee /etc/pam.d/polkit-1 >/dev/null <<EOF
 $GATE
 auth      sufficient pam_fprintd.so
