@@ -57,15 +57,11 @@ omarchy-shell shell summon inauman.fingerprint-enroll '{"finger":"right-index-fi
 tools/omarchy-fingerprint-enroll/omarchy-fingerprint-enroll right-index-finger
 ```
 
-Payload keys: `finger` (fprintd name, default `right-index-finger`),
-`user`, `doneFile` (gets `ok` or `failed` written when the overlay
-closes), `totalStages` (otherwise read from fprintd over D-Bus). Esc or a
-click outside cancels; fprintd keeps the previous print for that finger.
-
-Enrolling asks for your own password once (fprintd's default polkit policy,
-remembered for a few minutes), so an unlocked session alone cannot add a
-fingerprint to your account. The overlay never passes a username, which
-would trip the stricter `setusername` rule that wants an admin password.
+Payload keys: `finger` (fprintd name; without it the picker opens) and
+`doneFile` (gets `ok` or `failed` written when the overlay closes). Esc or a
+click outside cancels; fprintd keeps the previous print for that finger. The
+overlay never passes a username to fprintd, which would trip the stricter
+`setusername` rule that wants an admin password.
 
 ## Works with any reader
 
