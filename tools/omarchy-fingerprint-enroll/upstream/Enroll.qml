@@ -26,6 +26,8 @@ Item {
   readonly property string user: Quickshell.env("USER")
   property string doneFile: ""
   property bool resultSent: false
+  // which step a failure came from, so Enter retries the right one
+  property string failedStep: ""
   property int totalStages: 5
   property int stagesPassed: 0
   // idle | checking | setup | installing | starting | waiting | confirm |
@@ -68,16 +70,32 @@ Item {
     return I18n.t("fingerprint.pressAt", "Press %1 on the sensor").arg(root.tr(EnrollModel.placementFor(stagesPassed)))
   }
 
+  // A request arriving while the overlay is open is refused rather than
+  // allowed to take over: the shell delivers every summon to open(), and
+  // replacing the state would leave the first caller without a result. A
+  // second plain summon just keeps the open overlay.
+  function reject(doneFile) {
+    if (doneFile) Quickshell.execDetached(["bash", "-c", "printf '%s\\n' failed > \"$1\"", "_", doneFile])
+  }
+
   function open(payloadJson) {
     var payload = ({})
     try { payload = JSON.parse(payloadJson || "{}") } catch (e) { payload = ({}) }
 
+    if (root.opened) {
+      root.reject(payload.doneFile || "")
+      Qt.callLater(function() { keyCatcher.forceActiveFocus() })
+      return
+    }
+
+    root.stopAll()
+    root.failedStep = ""
     root.doneFile = payload.doneFile || ""
     root.resultSent = false
     root.pickerMode = !EnrollModel.validFinger(payload.finger)
     root.setupFlow = false
     root.opened = true
-    stagesProc.running = true
+    root.queryReader()
 
     if (root.pickerMode) {
       root.phase = "checking"
@@ -97,6 +115,10 @@ Item {
     root.hint = I18n.t("fingerprint.turnOnHint", "Press Enter to turn it on. You will be asked for your password")
     root.errorFlash = false
     listProc.running = true
+  }
+
+  function queryReader() {
+    if (!stagesProc.running) stagesProc.running = true
   }
 
   function beginSetup() {
@@ -156,14 +178,35 @@ Item {
     return root.enrolled.indexOf(fingerId) !== -1
   }
 
-  function close() {
-    root.opened = false
-    if (enrollProc.running) enrollProc.signal(15)
-    if (verifyProc.running) verifyProc.signal(15)
-    if (monitorProc.running) monitorProc.signal(15)
+  // Package installation and turning login on run as root through pkexec;
+  // closing then would unload the overlay and cut them off mid-transaction.
+  readonly property bool privileged: root.phase === "installing" || root.phase === "enabling"
+
+  // Stop everything one session started, so nothing fires into the next.
+  function stopAll() {
+    var timers = [errorFlashTimer, passFlashTimer, liftTimer, closeTimer, retryConfirmTimer]
+    for (var i = 0; i < timers.length; i++) timers[i].stop()
+    var procs = [enrollProc, verifyProc, monitorProc, stagesProc, statusProc, listProc]
+    for (var j = 0; j < procs.length; j++) {
+      if (procs[j].running) procs[j].signal(15)
+    }
+    root.errorFlash = false
+    root.passFlash = false
+    root.fingerPresent = false
   }
 
+  function close() {
+    root.opened = false
+    root.stopAll()
+  }
+
+  // Scripts ask whether the overlay is still there, so a request it can no
+  // longer answer (load failure, shell restart) fails fast instead of waiting.
+  function isOpen() { return root.opened ? "open" : "closed" }
+  function handles(doneFile) { return root.opened && doneFile !== "" && doneFile === root.doneFile ? "yes" : "no" }
+
   function dismiss() {
+    if (root.privileged) return
     if (root.phase !== "done" && root.phase !== "failed") root.finish("failed")
     root.close()
     if (root.shell && typeof root.shell.hide === "function")
@@ -225,6 +268,7 @@ Item {
       break
     case "failed":
       root.phase = "failed"
+      root.failedStep = "enroll"
       root.message = root.tr(step.message)
       root.hint = root.pickerMode ? I18n.t("fingerprint.escBack", "Press Esc to go back") : I18n.t("fingerprint.escClose", "Press Esc to close")
       errorFlashTimer.restart()
@@ -287,6 +331,9 @@ Item {
       if (!root.opened) return
       if (root.phase === "installing") {
         if (exitCode === 0) {
+          // fprintd may only now exist: ask the reader for its stage count
+          // and start the finger-present watch that the first query missed.
+          root.queryReader()
           if (root.enrolled.length > 0) {
             root.finger = root.enrolled[0]
             root.confirmTries = 0
@@ -310,6 +357,7 @@ Item {
           closeTimer.restart()
         } else {
           root.phase = "failed"
+          root.failedStep = "enable"
           root.message = exitCode === 126 || exitCode === 127 ? I18n.t("fingerprint.turnOnCancelled", "Turning it on was cancelled") : I18n.t("fingerprint.turnOnFailed", "Could not turn on fingerprint login")
           root.hint = I18n.t("fingerprint.retryHint", "Press Enter to try again, Esc to close")
           errorFlashTimer.restart()
@@ -336,6 +384,7 @@ Item {
             retryConfirmTimer.restart()
           } else {
             root.phase = "failed"
+            root.failedStep = "enroll"
             root.message = I18n.t("fingerprint.couldNotVerify", "Couldn't verify your %1").arg(root.fingerName(root.finger))
             root.hint = I18n.t("fingerprint.reenrollHint", "Press Enter to enroll it again, Esc to close")
           }
@@ -346,6 +395,7 @@ Item {
       if (root.phase !== "confirm" || !root.opened) return
       if (exitCode !== 0 && !retryConfirmTimer.running) {
         root.phase = "failed"
+        root.failedStep = "enroll"
         root.message = I18n.t("fingerprint.noResponse", "The reader did not respond")
         root.hint = I18n.t("fingerprint.reenrollHint", "Press Enter to enroll it again, Esc to close")
       }
@@ -377,7 +427,7 @@ Item {
       var parts = String(stagesStdout.text || "").trim().split(/\s+/)
       if (parts.length >= 1 && parts[0].indexOf("/") === 0) {
         root.devicePath = parts[0]
-        if (root.opened) monitorProc.running = true
+        if (root.opened && !monitorProc.running) monitorProc.running = true
       }
       var n = parseInt(parts[1] || "", 10)
       if (isFinite(n) && n > 0) root.totalStages = n
@@ -485,7 +535,8 @@ Item {
         Keys.priority: Keys.BeforeItem
         Keys.onPressed: function(event) {
           if (event.key === Qt.Key_Escape) {
-            if (root.phase === "failed" && root.pickerMode) root.showPicker()
+            if (root.privileged) root.hint = I18n.t("fingerprint.pleaseWait", "Please wait until this finishes")
+            else if (root.phase === "failed" && root.pickerMode) root.showPicker()
             else root.dismiss()
             event.accepted = true
             return
@@ -494,7 +545,7 @@ Item {
             event.accepted = true
             if (root.phase === "setup") root.beginSetup()
             else if (root.phase === "failed" && root.setupFlow) {
-              if (root.message.indexOf("turn on") !== -1 || root.message.indexOf("Turning") !== -1) root.beginEnable()
+              if (root.failedStep === "enable") root.beginEnable()
               else root.startEnroll(root.finger)
             }
             return

@@ -78,13 +78,23 @@ fi
 # installs packages through omarchy-fingerprint-setup-helper, guides the
 # enrollment on screen, confirms the print with a touch, and then turns
 # fingerprint login on with --enable-login above. Later runs open its finger
-# picker.
-if [[ $(omarchy-shell shell ping 2>/dev/null) == "ok" ]]; then
+# picker. omarchy-fingerprint-enroll exits 0 only once the overlay is on
+# screen; otherwise setup continues with the text flow below, which --text
+# asks for directly.
+if [[ ${1:-} != "--text" && $(omarchy-shell shell ping 2>/dev/null) == "ok" ]]; then
   if ! omarchy-hw-fingerprint; then
     echo -e "\e[31mNo fingerprint sensor detected.\e[0m"
     exit 1
   fi
-  exec omarchy-fingerprint-enroll
+  if omarchy-fingerprint-enroll </dev/null; then
+    exit 0
+  fi
+fi
+
+# The menu runs this without a terminal, which the text flow needs for sudo
+# and fprintd-enroll, so when the overlay did not open, reopen in one.
+if [[ ${1:-} == "--menu" ]]; then
+  exec omarchy-launch-floating-terminal-with-presentation omarchy-setup-security-fingerprint --text
 fi
 
 echo -e "\e[32mSetting up fingerprint scanner for authentication.\n\e[0m"

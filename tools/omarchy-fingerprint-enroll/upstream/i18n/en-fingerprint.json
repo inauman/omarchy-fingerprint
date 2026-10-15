@@ -47,6 +47,7 @@
   "fingerprint.placement.right": "slightly right of center",
   "fingerprint.placement.upperLeft": "the upper-left",
   "fingerprint.placement.upperRight": "the upper-right",
+  "fingerprint.pleaseWait": "Please wait until this finishes",
   "fingerprint.pressAt": "Press %1 on the sensor",
   "fingerprint.readerBusy": "The reader is busy. Close other fingerprint tools and retry",
   "fingerprint.readerNotStarted": "The fingerprint reader could not start. Try again, or replug it",
