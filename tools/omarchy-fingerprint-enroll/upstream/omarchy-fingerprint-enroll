@@ -40,7 +40,8 @@ fi
 # request carries a deadline (epoch milliseconds): the overlay refuses one
 # that arrives later, and this script gives up only once the deadline has
 # passed, so the overlay and the fallback never both run.
-deadline=$(( $(date +%s%3N) + 10000 ))
+WAIT_MS=${OMARCHY_FINGERPRINT_ENROLL_WAIT_MS:-10000}
+deadline=$(( $(date +%s%3N) + WAIT_MS ))
 
 past_deadline() {
   (( $(date +%s%3N) > deadline ))
