@@ -11,7 +11,7 @@ import "EnrollModel.js" as EnrollModel
 // phone does it, with a placement hint for the next press. Summon with:
 //
 //   omarchy-shell shell summon omarchy.fingerprint-enroll \
-//     '{"finger":"right-index-finger","doneFile":"/tmp/x"}'
+//     '{"finger":"right-index-finger","doneFile":"/tmp/x","expires":<epoch ms>}'
 //
 // When doneFile is given, "ok" or "failed" is written to it on exit so a
 // script can wait on the result (the same round-trip the image picker uses).
@@ -81,6 +81,15 @@ Item {
   function open(payloadJson) {
     var payload = ({})
     try { payload = JSON.parse(payloadJson || "{}") } catch (e) { payload = ({}) }
+
+    // The caller stops waiting at the request's deadline and may already be
+    // running the text flow, so a request the shell delivers later is
+    // refused: two enrollments would compete for the reader.
+    if (EnrollModel.expired(payload, Date.now())) {
+      root.reject(payload.doneFile || "")
+      if (!root.opened) Qt.callLater(function() { if (!root.opened) root.hideFromShell() })
+      return
+    }
 
     if (root.opened) {
       root.reject(payload.doneFile || "")
@@ -209,6 +218,10 @@ Item {
     if (root.privileged) return
     if (root.phase !== "done" && root.phase !== "failed") root.finish("failed")
     root.close()
+    root.hideFromShell()
+  }
+
+  function hideFromShell() {
     if (root.shell && typeof root.shell.hide === "function")
       root.shell.hide((root.manifest && root.manifest.id) || "omarchy.fingerprint-enroll")
   }

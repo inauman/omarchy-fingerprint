@@ -75,6 +75,13 @@ function placementFor(stagesPassed) {
   return placements[stagesPassed % placements.length]
 }
 
+// A request may carry a deadline (epoch milliseconds) after which its sender
+// has stopped waiting for the overlay; one without a deadline never expires.
+function expired(payload, now) {
+  var expires = Number(payload && payload.expires)
+  return isFinite(expires) && expires > 0 && now > expires
+}
+
 // fprintd's finger names: thumbs have no "-finger" suffix, the rest do
 var fingers = ["thumb", "index-finger", "middle-finger", "ring-finger", "little-finger"]
 var hands = ["left", "right"]
